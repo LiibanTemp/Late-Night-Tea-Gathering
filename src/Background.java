@@ -29,9 +29,9 @@ public class Background {
         if (nbgX <= -765) {
             nbgX += 1530;
         }
-//        if(nbgX >= 730){
-//           nbgX -= 1460; 
-//        }
+        if(nbgX >= 760){
+           nbgX -= 1530; 
+        }
     }
 
     public int getBgX() {
