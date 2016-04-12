@@ -11,7 +11,7 @@ public class Background {
     public Background(int x, int y) {
         nbgX = x;
         nbgY = y;
-        nspeedX = 10;
+        nspeedX = 15;
     }
  //Test code for Scrolling background with Character movement    
 //    public void keyPressed(KeyEvent w) {
@@ -26,12 +26,12 @@ public class Background {
     public void update() {
         nbgX -= nspeedX;
 
-        if (nbgX <= -730) {
-            nbgX += 1460;
+        if (nbgX <= -765) {
+            nbgX += 1530;
         }
-        if(nbgX >= 730){
-           nbgX -= 1460; 
-        }
+//        if(nbgX >= 730){
+//           nbgX -= 1460; 
+//        }
     }
 
     public int getBgX() {

@@ -30,7 +30,7 @@ public class PanBoard extends JPanel implements ActionListener {
         p = new Player();
         s = new Sprite();
         bg1 = new Background(0, 0);
-        bg2 = new Background(2160, 0);
+        bg2 = new Background(765, 0);
         s.loadSprite(sFile);
         addKeyListener(new Movement());
         setFocusable(true);
@@ -73,11 +73,9 @@ public class PanBoard extends JPanel implements ActionListener {
             if (code == KeyEvent.VK_A) {
                 nSpriteY = 1;
                 nSpriteX++;
-                
             } else if (code == KeyEvent.VK_D) {
                 nSpriteY = 3;
                 nSpriteX++;
-                
             }
             if (nSpriteX == 8) {
                 nSpriteX = 0;
