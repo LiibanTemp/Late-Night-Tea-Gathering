@@ -11,7 +11,7 @@ public class Background {
     public Background(int x, int y) {
         nbgX = x;
         nbgY = y;
-        nspeedX = 15;
+        nspeedX = 6;
     }
  //Test code for Scrolling background with Character movement    
 //    public void keyPressed(KeyEvent w) {

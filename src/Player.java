@@ -81,7 +81,6 @@ public class Player {
             //dx = -SPEED;
         } else if (code == KeyEvent.VK_D) {
             //dx = SPEED;
-            //
         }
         if (code == KeyEvent.VK_SPACE) {
             y = -100;
