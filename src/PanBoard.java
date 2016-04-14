@@ -56,6 +56,14 @@ public class PanBoard extends JPanel implements ActionListener {
             nScroll -= bg1.getSpeedX();
             nScroll2 -= bg2.getSpeedX();
         }
+        if (nScroll <= -765) {
+            nScroll += 765;
+            nScroll2 += 765;
+        }
+//        if(nScroll2 <= 765){
+//           nScroll -= 765;
+//           nScroll2 -= 765;
+//        }
         biSprite = s.getSprite(nSpriteX, nSpriteY);
         repaint();
     }
