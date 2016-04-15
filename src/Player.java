@@ -23,7 +23,7 @@ public class Player {
     //Booleans for character movement
 //    private boolean movingLeft = false;
 //    private boolean movingRight = false;
-    boolean bJump;
+    //boolean bJump;
 
     public void loadSprite(String sFile) {
         try {
@@ -47,7 +47,7 @@ public class Player {
         dy = 0;
         nGrav = 10;
         nTVelo = 100;
-        bJump = false;
+        //bJump = false;
     }
 
     public Rectangle getRect() {
@@ -57,7 +57,10 @@ public class Player {
 
     public void move() {
         x += dx;
-        y += vy;
+        y += dy;
+        if(y >= 376){
+            dy = 0;
+        }
 
     }
 
@@ -80,31 +83,24 @@ public class Player {
         if (code == KeyEvent.VK_A) {
             //dx = -SPEED;
         } else if (code == KeyEvent.VK_D) {
-            //dx = SPEED;
+           // dx = SPEED;
         }
         if (code == KeyEvent.VK_SPACE) {
             y = -100;
         }
         if (code == KeyEvent.VK_W) {
-            bJump = true;
+            dy = -7;
         }
-        while (bJump == true && y > 226) {
-            y -= nGrav;
-//            if (y <= nTVelo) {
-//                vy += nGrav;
-//                if (vy == -nTVelo) {
-//                    
-//                }
-           // }
-        }
+        
     }
 
     public void keyReleased(KeyEvent w) {
-        bJump = false;
-        while(y < 376){
-        y += nGrav;
-        }
-        dy = 0;
         dx = 0;
+        dy = 7;
+        if(y >= 376){
+        dy = 0;
+        y = 376;
+        }
+        
     }
 }

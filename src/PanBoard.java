@@ -17,7 +17,7 @@ public class PanBoard extends JPanel implements ActionListener {
     private Image background;
     static String sName;
     Label JLabel;
-    int nChange = 1, nSpriteX, nSpriteY, nScroll, nScroll2;
+    int nChange = 1, nSpriteX, nSpriteY, nScroll, nScroll2, nPY;
     String sFile;
     BufferedImage biSpriteSheet, biSprite;
     private static Background bg1, bg2;
@@ -59,12 +59,13 @@ public class PanBoard extends JPanel implements ActionListener {
         if (nScroll <= -765) {
             nScroll += 765;
             nScroll2 += 765;
+        }else if (nScroll2 >= 765){
+           nScroll -= 765;
+           nScroll2 -= 765;
         }
-//        if(nScroll2 <= 765){
-//           nScroll -= 765;
-//           nScroll2 -= 765;
-//        }
         biSprite = s.getSprite(nSpriteX, nSpriteY);
+        nPY = p.getY();
+        System.out.println(nPY);
         repaint();
     }
 
@@ -83,7 +84,13 @@ public class PanBoard extends JPanel implements ActionListener {
         public void keyReleased(KeyEvent w) {
             p.keyReleased(w);
             nSpriteX = 0;
+            if(nPY < 376){
+               bMove = true;
+               nSpriteX = 1;
+            }else{
             bMove = false;
+            nSpriteX = 0;
+            }
         }
 
         @Override
@@ -98,6 +105,10 @@ public class PanBoard extends JPanel implements ActionListener {
                 nSpriteY = 3;
                 nSpriteX++;
                 bMove = true;
+            }
+            if(code == KeyEvent.VK_W){
+                bMove = true;
+                nSpriteX = 1;
             }
             if (nSpriteX == 8) {
                 nSpriteX = 0;
