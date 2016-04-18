@@ -21,7 +21,7 @@ public class PanBoard extends JPanel implements ActionListener {
     String sFile;
     BufferedImage biSpriteSheet, biSprite;
     private static Background bg1, bg2;
-    boolean bMove;
+    boolean bMove, bJump;
 
     public PanBoard() {
 
@@ -29,7 +29,7 @@ public class PanBoard extends JPanel implements ActionListener {
         nSpriteX = 0;
         nSpriteY = 3;
         bMove = false;
-        //bJump = false;
+        bJump = false;
         p = new Player();
         s = new Sprite();
         bg1 = new Background(0, 0);
@@ -56,6 +56,10 @@ public class PanBoard extends JPanel implements ActionListener {
         } else if (nSpriteY == 3 && bMove == true){
             nScroll -= bg1.getSpeedX();
             nScroll2 -= bg2.getSpeedX();
+        } 
+        if (bMove == false){
+           nScroll -= 0;
+            nScroll2 -= 0; 
         }
         if (nScroll <= -765) {
             nScroll += 765;
@@ -88,7 +92,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if(nPY < 376){
                bMove = true;
                nSpriteX = 1;
-            }else{
+            }else if(nPY == 376){
             bMove = false;
             nSpriteX = 0;
             }
@@ -109,7 +113,7 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if(code == KeyEvent.VK_W){
                 bMove = true;
-                //bJump = true;
+                bJump = true;
                 nSpriteX = 1;
             }
             if (nSpriteX == 8) {
