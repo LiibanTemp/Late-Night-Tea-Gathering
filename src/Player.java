@@ -58,9 +58,13 @@ public class Player {
     public void move() {
         x += dx;
         y += dy;
-        if (bJump == true && y >= 276) {
+        if (bJump == true && y > 276) {
             dy = -7;
-        } else if (bJump == false || y <= 276) {
+        }
+           if(y <= 276){
+                bJump = false;
+            }
+        if (bJump == false) {
             dy = 7;
         }
         if (y > 376) {
@@ -103,7 +107,7 @@ public class Player {
     }
 
     public void keyReleased(KeyEvent w) {
-        bJump = false;
+        //bJump = false;
         dx = 0;
         //dy = 7;
 //        if (y >= 376) {
