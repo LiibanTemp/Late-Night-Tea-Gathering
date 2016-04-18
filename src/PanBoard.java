@@ -29,6 +29,7 @@ public class PanBoard extends JPanel implements ActionListener {
         nSpriteX = 0;
         nSpriteY = 3;
         bMove = false;
+        //bJump = false;
         p = new Player();
         s = new Sprite();
         bg1 = new Background(0, 0);
@@ -108,6 +109,7 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if(code == KeyEvent.VK_W){
                 bMove = true;
+                //bJump = true;
                 nSpriteX = 1;
             }
             if (nSpriteX == 8) {
