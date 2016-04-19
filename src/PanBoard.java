@@ -12,6 +12,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static boolean drawn = false;
     Rectangle rB, rP;
     private Player p;
+    private Enemy e;
     Sprite s;
     private Timer timer;
     private Image background;
@@ -32,6 +33,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bJump = false;
         p = new Player();
         s = new Sprite();
+        e = new Enemy();
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         nScroll = bg1.getBgX();
@@ -48,6 +50,7 @@ public class PanBoard extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         p.move();
+        e.move();
         bg1.update();
         bg2.update();
         if (nSpriteY == 1 && bMove == true) {
@@ -81,6 +84,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.drawImage(background, nScroll, bg1.getBgY(), this);
         g.drawImage(background, nScroll2, bg2.getBgY(), this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
+         g2d.drawImage(e.getImage(), e.getX(), e.getY(), null);
     }
 
     private class Movement extends KeyAdapter {

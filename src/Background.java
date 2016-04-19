@@ -13,15 +13,6 @@ public class Background {
         nbgY = y;
         nspeedX = 5;
     }
- //Test code for Scrolling background with Character movement    
-//    public void keyPressed(KeyEvent w) {
-//        int code = w.getKeyCode();
-//        if (code == KeyEvent.VK_A) {
-//            nspeedX = -10;
-//        } else if (code == KeyEvent.VK_D) {
-//            nspeedX = 10;
-//        }
-//    }
 
     public void update() {
         nbgX -= nspeedX;
