@@ -11,14 +11,30 @@ import javax.swing.*;
 
 public class Player {
 
+    private Image img;
+    private BufferedImage biSpriteSheet;
     int i;
     int x, y, bx, by, dx, dy, backgroundX, nYMain, nXMain, nY, nX;
     int vx, vy, nGrav, nTVelo;
     private final int SPEED = 15;
+    ImageIcon p = new ImageIcon("sprite.png");
+    int H = p.getIconHeight() / 4;
+    int W = p.getIconWidth() / 9;
     //Booleans for character movement
 //    private boolean movingLeft = false;
 //    private boolean movingRight = false;
     boolean bJump;
+
+    public void loadSprite(String sFile) {
+        try {
+            biSpriteSheet = ImageIO.read(new File("sprite.png"));;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    int rows = 4;
+    int cols = 9;
+    BufferedImage[] sprites = new BufferedImage[rows * cols];
     Rectangle r;
 
     public Player() {
@@ -35,6 +51,7 @@ public class Player {
     }
 
     public Rectangle getRect() {
+        r.setBounds(nX, nY, W, H);
         return r;
     }
 
@@ -62,6 +79,12 @@ public class Player {
 
     public int getY() {
         return y;
+    }
+
+    public Image getImage() {
+        img = p.getImage();
+        return img;
+
     }
 
     public void keyPressed(KeyEvent w) {
