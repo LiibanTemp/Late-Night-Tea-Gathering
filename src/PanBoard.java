@@ -56,20 +56,20 @@ public class PanBoard extends JPanel implements ActionListener {
         if (nSpriteY == 1 && bMove == true) {
             nScroll += bg1.getSpeedX();
             nScroll2 += bg2.getSpeedX();
-        } else if (nSpriteY == 3 && bMove == true){
+        } else if (nSpriteY == 3 && bMove == true) {
             nScroll -= bg1.getSpeedX();
             nScroll2 -= bg2.getSpeedX();
-        } 
-        if (bMove == false){
-           nScroll -= 0;
-            nScroll2 -= 0; 
+        }
+        if (bMove == false) {
+            nScroll -= 0;
+            nScroll2 -= 0;
         }
         if (nScroll <= -765) {
             nScroll += 765;
             nScroll2 += 765;
-        }else if (nScroll2 >= 765){
-           nScroll -= 765;
-           nScroll2 -= 765;
+        } else if (nScroll2 >= 765) {
+            nScroll -= 765;
+            nScroll2 -= 765;
         }
         biSprite = s.getSprite(nSpriteX, nSpriteY);
         nPY = p.getY();
@@ -84,7 +84,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.drawImage(background, nScroll, bg1.getBgY(), this);
         g.drawImage(background, nScroll2, bg2.getBgY(), this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
-         g2d.drawImage(e.getImage(), e.getX(), e.getY(), null);
+        g2d.drawImage(e.getImage(), e.getX(), e.getY(), null);
     }
 
     private class Movement extends KeyAdapter {
@@ -92,19 +92,21 @@ public class PanBoard extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent w) {
             p.keyReleased(w);
+            e.keyReleased(w);
             nSpriteX = 0;
-            if(nPY < 376){
-               bMove = true;
-               nSpriteX = 1;
-            }else if(nPY == 376){
-            bMove = false;
-            nSpriteX = 0;
+            if (nPY < 376) {
+                bMove = true;
+                nSpriteX = 1;
+            } else if (nPY == 376) {
+                bMove = false;
+                nSpriteX = 0;
             }
         }
 
         @Override
         public void keyPressed(KeyEvent w) {
             p.keyPressed(w);
+            e.keyPressed(w);
             int code = w.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nSpriteY = 1;
@@ -115,7 +117,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 nSpriteX++;
                 bMove = true;
             }
-            if(code == KeyEvent.VK_W){
+            if (code == KeyEvent.VK_W) {
                 bMove = true;
                 bJump = true;
                 nSpriteX = 1;

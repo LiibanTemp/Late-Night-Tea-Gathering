@@ -1,6 +1,9 @@
+
 import javax.swing.*;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+
 public class Enemy {
 
     private Image img;
@@ -10,17 +13,17 @@ public class Enemy {
     int nWidth, nLength, EH, EW, nEXP, nSpawn;
     private final int nSpeed = 10;
     ImageIcon e1 = new ImageIcon("Sanic.png");
-    ImageIcon e2 = new ImageIcon("Sanic.png");
+    //ImageIcon e2 = new ImageIcon("Sanic.png");
     int imgWidth = e1.getIconHeight();
-    int imgHeight = e2.getIconWidth();
+   // int imgHeight = e2.getIconWidth();
     Image arnEnemy[] = new Image[3];
     int arnHit[] = new int[50];
     Rectangle r;
 
-    public Rectangle getRect(){
+    public Rectangle getRect() {
         //r.setBounds(x, y, imgWidth, imgHeight);
         return r;
-        
+
     }
 
     public Enemy() {
@@ -28,18 +31,18 @@ public class Enemy {
         dx = 0;
         dy = 0;
         x = 200;
-        y = 376;
+        y = 405;
         nEXP = 5;
         nHit = 1;
         arnEnemy[0] = e1.getImage();
-        arnEnemy[1] = e2.getImage();
+        //arnEnemy[1] = e2.getImage();
     }
 
     public void move() {
-        EH = imgHeight + y;
+      //  EH = imgHeight + y;
         EW = imgWidth + x - 30;
-       // x += dx;
-        //y += dy;
+        x += dx;
+        y += dy;
 //        if (k == 1 || k == 2) {
 //            if (X > x) {
 //                dx = nSpeed;
@@ -55,7 +58,7 @@ public class Enemy {
 //            } else {
 //                dy = 0;
 //            }
-            
+
 //        }
     }
 
@@ -67,10 +70,10 @@ public class Enemy {
         return y - 30;
     }
 
-    public Image getImage(){
+    public Image getImage() {
         img = arnEnemy[k];
         //return img;
-        
+
 //        if (nHit == nEXP) {
 //            k = 0;
 //            x = 3000;
@@ -93,7 +96,22 @@ public class Enemy {
 //                return img;
 //            }
         return img;
-                
+
     }
 
+    public void keyPressed(KeyEvent w) {
+        int code = w.getKeyCode();
+        if (code == KeyEvent.VK_D) {
+            dx = -5;
+        }
+        if (code == KeyEvent.VK_A) {
+            dx = 5;
+
+        }
+    }
+
+    public void keyReleased(KeyEvent w) {
+        dx = 0;
+
+    }
 }
