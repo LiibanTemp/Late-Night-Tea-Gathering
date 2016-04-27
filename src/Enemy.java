@@ -43,23 +43,6 @@ public class Enemy {
         EW = imgWidth + x - 30;
         x += dx;
         y += dy;
-//        if (k == 1 || k == 2) {
-//            if (X > x) {
-//                dx = nSpeed;
-//            } else if (X < x) {
-//                dx = -nSpeed;
-//            } else {
-//                dx = 0;
-//            }
-//            if (Y > y) {
-//                dy = nSpeed;
-//            } else if (Y < y) {
-//                dy = -nSpeed;
-//            } else {
-//                dy = 0;
-//            }
-
-//        }
     }
 
     public int getX() {
@@ -72,29 +55,6 @@ public class Enemy {
 
     public Image getImage() {
         img = arnEnemy[k];
-        //return img;
-
-//        if (nHit == nEXP) {
-//            k = 0;
-//            x = 3000;
-//            y = 3000;
-//            nSpawn++;
-//            if (nSpawn >= 20) {
-//                nSpawn += 1;
-//                x = 100;
-//                y = 100;
-//                nEXP += 5;
-//            }
-//            return img;
-//        }
-//            if (X >= x) {
-//                k = 1;
-//                return img;
-//            }
-//            if (X <= x) {
-//                k = 2;
-//                return img;
-//            }
         return img;
 
     }

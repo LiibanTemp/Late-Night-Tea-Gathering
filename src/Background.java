@@ -6,46 +6,48 @@ import java.awt.event.KeyEvent;
 
 public class Background {
 
-    private int nbgX, nbgY, nspeedX;
+    private int nbgX, nbgY, nspeedX, nScroll, nScroll2;
 
     public Background(int x, int y) {
-        nbgX = x;
-        nbgY = y;
+        nScroll = x;
+        nScroll2 = x + 765;
         nspeedX = 5;
     }
 
     public void update() {
-        nbgX -= nspeedX;
-
-        if (nbgX <= -765) {
-            nbgX += 1530;
+        if (PanBoard.bMove()){
+        if (PanBoard.nDir() == 1) {
+            nScroll += nspeedX;
+            nScroll2 += nspeedX;
+        } else if (PanBoard.nDir() == 3) {
+            nScroll -= nspeedX;
+            nScroll2 -= nspeedX;
         }
-        if(nbgX >= 760){
-           nbgX -= 1530; 
+        
+        if (nScroll <= -765) {
+            nScroll += 765;
+            nScroll2 += 765;
+        
+        } else if (nScroll2 >= 765) {
+            nScroll -= 765;
+            nScroll2 -= 765;
+        }
+        }else{
+            nScroll -= 0;
+            nScroll2 -= 0;
         }
     }
 
-    public int getBgX() {
-        return nbgX;
+    public int getnScroll() {
+        return nScroll;
     }
-
-    public int getBgY() {
-        return nbgY;
+    public int getnScroll2() {
+        return nScroll2;
     }
-
-    public int getSpeedX() {
-        return nspeedX;
+    public void setnScroll(int nScroll) {
+        this.nScroll = nScroll;
     }
-
-    public void setBgX(int nbgX) {
-        this.nbgX = nbgX;
-    }
-
-    public void setBgY(int nbgY) {
-        this.nbgY = nbgY;
-    }
-
-    public void setSpeedX(int nspeedX) {
-        this.nspeedX = nspeedX;
+    public void setnScroll2(int nScroll2) {
+        this.nScroll2 = nScroll2;
     }
 }

@@ -11,34 +11,39 @@ public class PanBoard extends JPanel implements ActionListener {
 
     static boolean drawn = false;
     Rectangle rB, rP;
-    private Player p;
-    private Enemy e;
-    Sprite s;
+    //private Player p;
+    //private Enemy e;
+    Sprite p, e;
+    private Enemy en;
     private Timer timer;
     private Image background;
     static String sName;
     Label JLabel;
-    int nChange = 1, nSpriteX, nSpriteY, nScroll, nScroll2, nPY;
-    String sFile;
-    BufferedImage biSpriteSheet, biSprite;
+    int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
+    String sFile, sFile2;
+    static int nDir;
+    BufferedImage biSpriteSheet, biSprite, biSprite2;
     private static Background bg1, bg2;
-    boolean bMove, bJump;
+    static boolean bMove, bJump;
 
     public PanBoard() {
 
         sFile = "Walk (2).png";
-        nSpriteX = 0;
-        nSpriteY = 3;
+        sFile2 = "Sanic.png";
+        //nSpriteX = 0; // this variable is used to get the proper image from the spritesheet. I will use nDir
+        nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
         bJump = false;
-        p = new Player();
-        s = new Sprite();
-        e = new Enemy();
+        nY += nDy;
+        nX += nDx;
+        nDx = 5;
+        nY = 376;
+        p = new Sprite(sFile, 350, 376, true);
+        e = new Sprite(sFile2, 200, 405, false);
+        //e = new Enemy();
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
-        nScroll = bg1.getBgX();
-        nScroll2 = bg2.getBgX();
-        s.loadSprite(sFile);
+        //s.loadSprite(sFile);
         addKeyListener(new Movement());
         setFocusable(true);
         ImageIcon i1 = new ImageIcon("Tea2.jpg");
@@ -53,26 +58,15 @@ public class PanBoard extends JPanel implements ActionListener {
         e.move();
         bg1.update();
         bg2.update();
-        if (nSpriteY == 1 && bMove == true) {
-            nScroll += bg1.getSpeedX();
-            nScroll2 += bg2.getSpeedX();
-        } else if (nSpriteY == 3 && bMove == true) {
-            nScroll -= bg1.getSpeedX();
-            nScroll2 -= bg2.getSpeedX();
+
+        
+        if (bMove) {
+            biSprite = p.getSprite(nDir);
+        } else {
+            biSprite = p.getStill();
+            biSprite2 = e.getStill();
         }
-        if (bMove == false) {
-            nScroll -= 0;
-            nScroll2 -= 0;
-        }
-        if (nScroll <= -765) {
-            nScroll += 765;
-            nScroll2 += 765;
-        } else if (nScroll2 >= 765) {
-            nScroll -= 765;
-            nScroll2 -= 765;
-        }
-        biSprite = s.getSprite(nSpriteX, nSpriteY);
-        nPY = p.getY();
+        //nPY = p.getY();
         System.out.println(nPY);
         repaint();
     }
@@ -81,49 +75,44 @@ public class PanBoard extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g.drawImage(background, nScroll, bg1.getBgY(), this);
-        g.drawImage(background, nScroll2, bg2.getBgY(), this);
+        g.drawImage(background, bg1.getnScroll(), 0, this);
+        g.drawImage(background, bg2.getnScroll2(), 0, this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
-        g2d.drawImage(e.getImage(), e.getX(), e.getY(), null);
+        g2d.drawImage(biSprite2, nX, nY, null);
     }
 
     private class Movement extends KeyAdapter {
 
         @Override
-        public void keyReleased(KeyEvent w) {
-            p.keyReleased(w);
-            e.keyReleased(w);
-            nSpriteX = 0;
-            if (nPY < 376) {
-                bMove = true;
-                nSpriteX = 1;
-            } else if (nPY == 376) {
-                bMove = false;
-                nSpriteX = 0;
-            }
+        public void keyReleased(KeyEvent e) {
+            bMove = false;
+            //e.keyReleased(w);
+            //nSpriteX = 0;
         }
 
         @Override
-        public void keyPressed(KeyEvent w) {
-            p.keyPressed(w);
-            e.keyPressed(w);
-            int code = w.getKeyCode();
+        public void keyPressed(KeyEvent e) {
+            // why split up the keyPressed function???
+            int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
-                nSpriteY = 1;
-                nSpriteX++;
+                nDir = 1;
+                nX += nDx;
                 bMove = true;
             } else if (code == KeyEvent.VK_D) {
-                nSpriteY = 3;
-                nSpriteX++;
+                nDir = 3;
+                nX -= nDx;
                 bMove = true;
             }
             if (code == KeyEvent.VK_W) {
-                bMove = true;
-                bJump = true;
-                nSpriteX = 1;
+                //bMove = true;
+                //bJump = true;
+                p.Jump();
+                //nDir = 1;
             }
-            if (nSpriteX == 8) {
-                nSpriteX = 0;
+
+
+            if (code == KeyEvent.VK_W) {
+                bJump = true;
             }
         }
     }
@@ -134,5 +123,11 @@ public class PanBoard extends JPanel implements ActionListener {
 
     public static Background getBg2() {
         return bg2;
+    }
+    public static boolean bMove() {
+        return bMove;
+    }
+    public static int nDir() {
+        return nDir;
     }
 }
