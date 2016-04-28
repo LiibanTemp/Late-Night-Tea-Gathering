@@ -14,9 +14,9 @@ public class PanBoard extends JPanel implements ActionListener {
     //private Player p;
     //private Enemy e;
     Sprite p, e;
-    private Enemy en;
+    //private Enemy en;
     private Timer timer;
-    private Image background, Ground;
+    private Image background;
     static String sName;
     Label JLabel;
     int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
@@ -25,7 +25,7 @@ public class PanBoard extends JPanel implements ActionListener {
     BufferedImage biSpriteSheet, biSprite, biSprite2;
     private static Background bg1, bg2;
     static boolean bMove, bJump;
-    Rectangle P, E;
+    Rectangle P, E, G;
 
     public PanBoard() {
 
@@ -33,6 +33,7 @@ public class PanBoard extends JPanel implements ActionListener {
         sFile2 = "Sanic.png";
         P = new Rectangle();
         E = new Rectangle();
+        G = new Rectangle();
         //nSpriteX = 0; // this variable is used to get the proper image from the spritesheet. I will use nDir
         nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
@@ -48,9 +49,7 @@ public class PanBoard extends JPanel implements ActionListener {
         addKeyListener(new Movement());
         setFocusable(true);
         ImageIcon i1 = new ImageIcon("Tea2.jpg");
-        ImageIcon i2 = new ImageIcon("Ground.jpg");
         background = i1.getImage();
-        Ground = i2.getImage();
         timer = new Timer(30, this);
         timer.start();
     }
@@ -63,9 +62,12 @@ public class PanBoard extends JPanel implements ActionListener {
         bg2.update();
         P.setBounds(p.getX(), p.getY(), 64, 64);
         E.setBounds(nX, nY, 75, 64);
+        //Ground Hit detection rectangle
+        G.setBounds(0, 438, 765, 1);
         if(E.intersects(P)){
+        }
+        if(G.intersects(P)){
             System.out.println("Hit");
-            bMove = false;
         }
         if (bMove) {
             biSprite = p.getSprite(nDir);
@@ -85,7 +87,6 @@ public class PanBoard extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         g.drawImage(background, bg1.getnScroll(), 0, this);
         g.drawImage(background, bg2.getnScroll2(), 0, this);
-        g.drawImage(Ground, 0, 440, this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
         g2d.drawImage(biSprite2, nX, nY, null);
         
