@@ -43,24 +43,6 @@ public class Sprite {
         dy += nGravity;
         y += dy;
         x += dx;
-
-//        if (bJump == true && y > 276) {
-//            dy = -7;
-//        }
-//        if (y <= 276) {
-//            bJump = false;
-//        }
-//        if (bJump == false) {
-//            dy = 7;
-//        }
-//        if (y > 376) {
-//            dy = 0;
-//            y = 376;
-//        }
-    }
-
-    public void Jump() {
-        //y -= 100;
     }
 
     public int getX() {

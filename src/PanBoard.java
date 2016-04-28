@@ -64,15 +64,15 @@ public class PanBoard extends JPanel implements ActionListener {
         E.setBounds(nX, nY, 75, 64);
         //Ground Hit detection rectangle
         G.setBounds(0, 438, 765, 1);
-        if(E.intersects(P)){
-            p.y = e.y;
-            p.dy =0;
+        if (E.intersects(P)) {
+            nDx = 0;
+            System.out.println("Hit");
         }
-        if(G.intersects(P)){
+        if (G.intersects(P)) {
             p.y = 376;
             bJump = true;
-            p.dy =0;
-            System.out.println("Hit");
+            p.dy = 0;
+            //System.out.println("Hit");
         } else {
             bJump = false;
         }
@@ -82,12 +82,9 @@ public class PanBoard extends JPanel implements ActionListener {
             biSprite = p.getStill();
             biSprite2 = e.getStill();
         }
-        
-        //nPY = p.getY();
-        //System.out.println(nPY);
         repaint();
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -96,8 +93,8 @@ public class PanBoard extends JPanel implements ActionListener {
         g.drawImage(background, bg2.getnScroll2(), 0, this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
         g2d.drawImage(biSprite2, nX, nY, null);
-        
-        
+
+
     }
 
     private class Movement extends KeyAdapter {
@@ -105,11 +102,6 @@ public class PanBoard extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             bMove = false;
-//            if(p.getY() <= 276){
-//                bJump = false;
-//            }
-            //e.keyReleased(w);
-            //nSpriteX = 0;
         }
 
         @Override
@@ -127,13 +119,7 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (code == KeyEvent.VK_W && bJump) {
                 p.dy = -10;
-                //bMove = true;
-                //bJump = true;
-                //nDir = 1;
             }
-//            if (bJump) {
-//                p.Jump();
-//            }
         }
     }
 
@@ -144,9 +130,11 @@ public class PanBoard extends JPanel implements ActionListener {
     public static Background getBg2() {
         return bg2;
     }
+
     public static boolean bMove() {
         return bMove;
     }
+
     public static int nDir() {
         return nDir;
     }
