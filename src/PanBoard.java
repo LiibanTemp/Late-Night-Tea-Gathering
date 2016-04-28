@@ -16,7 +16,7 @@ public class PanBoard extends JPanel implements ActionListener {
     Sprite p, e;
     private Enemy en;
     private Timer timer;
-    private Image background;
+    private Image background, Ground;
     static String sName;
     Label JLabel;
     int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
@@ -25,11 +25,14 @@ public class PanBoard extends JPanel implements ActionListener {
     BufferedImage biSpriteSheet, biSprite, biSprite2;
     private static Background bg1, bg2;
     static boolean bMove, bJump;
+    Rectangle P, E;
 
     public PanBoard() {
 
         sFile = "Walk (2).png";
         sFile2 = "Sanic.png";
+        P = new Rectangle();
+        E = new Rectangle();
         //nSpriteX = 0; // this variable is used to get the proper image from the spritesheet. I will use nDir
         nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
@@ -40,14 +43,14 @@ public class PanBoard extends JPanel implements ActionListener {
         nY = 376;
         p = new Sprite(sFile, 350, 376, true);
         e = new Sprite(sFile2, 200, 405, false);
-        //e = new Enemy();
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
-        //s.loadSprite(sFile);
         addKeyListener(new Movement());
         setFocusable(true);
         ImageIcon i1 = new ImageIcon("Tea2.jpg");
+        ImageIcon i2 = new ImageIcon("Ground.jpg");
         background = i1.getImage();
+        Ground = i2.getImage();
         timer = new Timer(30, this);
         timer.start();
     }
@@ -58,27 +61,35 @@ public class PanBoard extends JPanel implements ActionListener {
         e.move();
         bg1.update();
         bg2.update();
-
-        
+        P.setBounds(p.getX(), p.getY(), 64, 64);
+        E.setBounds(nX, nY, 75, 64);
+        if(E.intersects(P)){
+            System.out.println("Hit");
+            bMove = false;
+        }
         if (bMove) {
             biSprite = p.getSprite(nDir);
         } else {
             biSprite = p.getStill();
             biSprite2 = e.getStill();
         }
+        
         //nPY = p.getY();
-        System.out.println(nPY);
+        //System.out.println(nPY);
         repaint();
     }
-
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g.drawImage(background, bg1.getnScroll(), 0, this);
         g.drawImage(background, bg2.getnScroll2(), 0, this);
+        g.drawImage(Ground, 0, 440, this);
         g2d.drawImage(biSprite, p.getX(), p.getY(), null);
         g2d.drawImage(biSprite2, nX, nY, null);
+        
+        
     }
 
     private class Movement extends KeyAdapter {
@@ -86,6 +97,9 @@ public class PanBoard extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             bMove = false;
+            if(p.getX() <= 276){
+                bJump = false;
+            }
             //e.keyReleased(w);
             //nSpriteX = 0;
         }
@@ -105,14 +119,11 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (code == KeyEvent.VK_W) {
                 //bMove = true;
-                //bJump = true;
-                p.Jump();
+                bJump = true;
                 //nDir = 1;
             }
-
-
-            if (code == KeyEvent.VK_W) {
-                bJump = true;
+            if (bJump) {
+                p.Jump();
             }
         }
     }

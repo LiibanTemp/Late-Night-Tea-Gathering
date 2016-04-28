@@ -6,34 +6,30 @@ import java.awt.event.KeyEvent;
 
 public class Enemy {
 
-    private Image img;
-    int k;
+    //private Image img;
+    //int k;
     int x, y, dx, dy;
-    static int X, Y, I, BX, BY, nHit;
+    //static int X, Y, I, BX, BY, nHit;
     int nWidth, nLength, EH, EW, nEXP, nSpawn;
-    private final int nSpeed = 10;
+    //private final int nSpeed = 10;
     ImageIcon e1 = new ImageIcon("Sanic.png");
     //ImageIcon e2 = new ImageIcon("Sanic.png");
-    int imgWidth = e1.getIconHeight();
+    int imgWidth = e1.getIconWidth();
+    int imgHeight = e1.getIconHeight();
    // int imgHeight = e2.getIconWidth();
     Image arnEnemy[] = new Image[3];
     int arnHit[] = new int[50];
-    Rectangle r;
+    //Rectangle e;
 
-    public Rectangle getRect() {
-        //r.setBounds(x, y, imgWidth, imgHeight);
-        return r;
-
-    }
 
     public Enemy() {
-        r = new Rectangle();
+        //e = new Rectangle();
         dx = 0;
         dy = 0;
         x = 200;
         y = 405;
         nEXP = 5;
-        nHit = 1;
+        //nHit = 1;
         arnEnemy[0] = e1.getImage();
         //arnEnemy[1] = e2.getImage();
     }
@@ -53,11 +49,11 @@ public class Enemy {
         return y - 30;
     }
 
-    public Image getImage() {
-        img = arnEnemy[k];
-        return img;
-
-    }
+//    public Image getImage() {
+//        img = arnEnemy[k];
+//        return img;
+//
+//    }
 
     public void keyPressed(KeyEvent w) {
         int code = w.getKeyCode();

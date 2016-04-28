@@ -10,20 +10,19 @@ import javax.imageio.ImageIO;
 public class Sprite {
     
     private BufferedImage biSpriteSheet;
-    private static final int TILE_SIZEX = 576/9;
-    private static final int TILE_SIZEY = 256/4;
+    private static final int TILE_SIZEX = 64;
+    private static final int TILE_SIZEY = 64;
 
     int i;
-    int x, y, bx, by, dx, dy, backgroundX, nYMain, nXMain, nY, nX, nDir, nGridX;
+    int x, y, dx, dy, nDir, nGridX;
     private final int SPEED = 15;
     boolean bJump, isAnim;
     int rows = 4;
     int cols = 9;
-    Rectangle r;
+    Rectangle p;
     String sFile;
     public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
-        sFile = _sFile;       
-        r = new Rectangle();
+        sFile = _sFile;
         x = 350;
         y = 376;
         dx = 0;
@@ -35,14 +34,10 @@ public class Sprite {
             biSpriteSheet = ImageIO.read(new File(sFile));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        
-        
+        } 
     }
     
     public void move() {
-        //dx = _dx;
-        //dy = _dy;
         x += dx;
         y += dy;
         if (bJump == true && y > 276) {
