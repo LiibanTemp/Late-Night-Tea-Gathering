@@ -65,8 +65,12 @@ public class PanBoard extends JPanel implements ActionListener {
         //Ground Hit detection rectangle
         G.setBounds(0, 438, 765, 1);
         if(E.intersects(P)){
+            p.y = e.y;
+            p.dy =0;
         }
         if(G.intersects(P)){
+            p.y = 376;
+            p.dy =0;
             System.out.println("Hit");
         }
         if (bMove) {
@@ -98,9 +102,9 @@ public class PanBoard extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             bMove = false;
-            if(p.getX() <= 276){
-                bJump = false;
-            }
+//            if(p.getY() <= 276){
+//                bJump = false;
+//            }
             //e.keyReleased(w);
             //nSpriteX = 0;
         }
@@ -119,8 +123,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 bMove = true;
             }
             if (code == KeyEvent.VK_W) {
+                p.dy = -10;
                 //bMove = true;
-                bJump = true;
+                //bJump = true;
                 //nDir = 1;
             }
             if (bJump) {
