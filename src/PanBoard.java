@@ -70,8 +70,11 @@ public class PanBoard extends JPanel implements ActionListener {
         }
         if(G.intersects(P)){
             p.y = 376;
+            bJump = true;
             p.dy =0;
             System.out.println("Hit");
+        } else {
+            bJump = false;
         }
         if (bMove) {
             biSprite = p.getSprite(nDir);
@@ -122,15 +125,15 @@ public class PanBoard extends JPanel implements ActionListener {
                 nX -= nDx;
                 bMove = true;
             }
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_W && bJump) {
                 p.dy = -10;
                 //bMove = true;
                 //bJump = true;
                 //nDir = 1;
             }
-            if (bJump) {
-                p.Jump();
-            }
+//            if (bJump) {
+//                p.Jump();
+//            }
         }
     }
 
