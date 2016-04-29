@@ -67,6 +67,9 @@ public class PanBoard extends JPanel implements ActionListener {
         if (E.intersects(P)) {
             nDx = 0;
             System.out.println("Hit");
+
+        } else {
+            nDx = 5;
         }
         if (G.intersects(P)) {
             p.y = 376;
@@ -116,6 +119,10 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 nX -= nDx;
                 bMove = true;
+            } else if (code == KeyEvent.VK_D && E.intersects(P)) {
+                nDx = 5;
+                nX -= nDx;
+                System.out.println("five");
             }
             if (code == KeyEvent.VK_W && bJump) {
                 p.dy = -10;
