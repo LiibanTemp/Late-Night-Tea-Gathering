@@ -42,8 +42,8 @@ public class PanBoard extends JPanel implements ActionListener {
         nX += nDx;
         nDx = 5;
         nY = 376;
-        p = new Sprite(sFile, 350, 376, true);
-        e = new Sprite(sFile2, 200, 405, false);
+        p = new Sprite(sFile, 350, 380, true, false);
+        e = new Sprite(sFile2, 200, 405, false, true);
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -60,10 +60,10 @@ public class PanBoard extends JPanel implements ActionListener {
         e.move();
         bg1.update();
         bg2.update();
-        P.setBounds(p.getX(), p.getY(), 64, 64);
-        E.setBounds(nX, nY, 75, 64);
+        P.setBounds(p.getX(), p.getY(), 32, 50);
+        E.setBounds(nX, nY, 60, 64);
         //Ground Hit detection rectangle
-        G.setBounds(0, 438, 765, 1);
+        G.setBounds(0, 430, 765, 1);
         if (E.intersects(P)) {
             nDx = 0;
             System.out.println("Hit");
@@ -72,7 +72,7 @@ public class PanBoard extends JPanel implements ActionListener {
             nDx = 5;
         }
         if (G.intersects(P)) {
-            p.y = 376;
+            p.y = 380;
             bJump = true;
             p.dy = 0;
             //System.out.println("Hit");
@@ -82,8 +82,8 @@ public class PanBoard extends JPanel implements ActionListener {
         if (bMove) {
             biSprite = p.getSprite(nDir);
         } else {
-            biSprite = p.getStill();
-            biSprite2 = e.getStill();
+            biSprite = p.getPStill();
+            biSprite2 = e.getEStill();
         }
         repaint();
     }
