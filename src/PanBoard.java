@@ -38,7 +38,7 @@ public class PanBoard extends JPanel implements ActionListener {
         nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
         bJump = false;
-        nY += nDy;
+        //nY += nDy;
         nX += nDx;
         nDx = 5;
         nY = 376;
@@ -68,7 +68,7 @@ public class PanBoard extends JPanel implements ActionListener {
             nX -= nDx;
             //nDx =0;
             System.out.println("Hit");
-        }else if (E.intersects(P) && nX > p.x) {
+        } else if (E.intersects(P) && nX > p.x) {
             nX += nDx;
         }
         if (G.intersects(P)) {
@@ -119,8 +119,8 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 nX -= nDx;
                 bMove = true;
-                
-            }else if (code == KeyEvent.VK_W && bJump) {
+
+            } else if (code == KeyEvent.VK_W && bJump) {
                 p.dy = -10;
             }
         }
