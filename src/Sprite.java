@@ -23,7 +23,7 @@ public class Sprite {
     Rectangle p;
     String sFile;
 
-    public Sprite(String _sFile, int _x, int _y, boolean _isAnim, boolean _isEnemy) {
+    public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
         sFile = _sFile;
         x = 350;
         y = 380;
