@@ -17,7 +17,7 @@ public class Sprite {
     int x, y, dx, dy, nDir, nGridX;
     int nGravity = 1;
     private final int SPEED = 15;
-    boolean bJump, isAnim;
+    boolean bJump, isAnim, isEnemy;
     int rows = 4;
     int cols = 9;
     Rectangle p;
@@ -26,7 +26,7 @@ public class Sprite {
     public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
         sFile = _sFile;
         x = 350;
-        y = 376;
+        y = 380;
         dx = 0;
         dy = 0;
         bJump = false;
@@ -61,7 +61,10 @@ public class Sprite {
         return biSpriteSheet.getSubimage(nGridX++ * TILE_SIZEX, nDir * TILE_SIZEY, TILE_SIZEX, TILE_SIZEY);
     }
 
-    public BufferedImage getStill() {
+    public BufferedImage getPStill() {
         return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, TILE_SIZEX, TILE_SIZEY);
+    }
+     public BufferedImage getEStill() {
+        return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, 75, TILE_SIZEY);
     }
 }
