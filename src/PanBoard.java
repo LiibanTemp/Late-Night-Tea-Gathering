@@ -19,7 +19,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static String sName;
     Label JLabel;
     int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
-    int nXstart, nYstart;
+    int nXstart, nYstart, nYstart2, nXstart2;
     String sFile, sFile2;
     static int nDir;
     BufferedImage biSpriteSheet, biPlayer, biEnemy;
@@ -58,6 +58,8 @@ public class PanBoard extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
         nXstart = nX;
         nYstart = nY;
+        nYstart2 = sPlayer.y;
+        nXstart2 = sPlayer.x;
         nDx = 5;
         sPlayer.move();
         sEnemy.move();
@@ -72,6 +74,12 @@ public class PanBoard extends JPanel implements ActionListener {
        } else if (nX >= sPlayer.x) {
            nX-=nDx;
        }
+        if (rEnemy.intersects(rPlayer)) {
+            sPlayer.y = nYstart2;
+            sPlayer.x = nXstart2;
+            sPlayer.dy = 0;
+            bJump = true;
+        }
         if (rEnemy.intersects(rPlayer) && nX < sPlayer.x) {
             nX = nXstart;
             nY = nYstart; 
