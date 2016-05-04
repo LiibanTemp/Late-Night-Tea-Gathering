@@ -19,6 +19,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static String sName;
     Label JLabel;
     int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
+    int nXstart, nYstart;
     String sFile, sFile2;
     static int nDir;
     BufferedImage biSpriteSheet, biPlayer, biEnemy;
@@ -38,8 +39,8 @@ public class PanBoard extends JPanel implements ActionListener {
         bMove = false;
         bJump = false;
         //nY += nDy;
-        nX += nDx;
-        nDx = 5;
+//        nX += nDx;
+//        nDx = 5;
         nY = 376;
         sPlayer = new Sprite(sFile, 350, 380, true);
         sEnemy = new Sprite(sFile2, 200, 405, false);
@@ -55,6 +56,9 @@ public class PanBoard extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
+        nXstart = nX;
+        nYstart = nY;
+        nDx = 5;
         sPlayer.move();
         sEnemy.move();
         bg1.update();
@@ -63,12 +67,21 @@ public class PanBoard extends JPanel implements ActionListener {
         rEnemy.setBounds(nX, nY, 60, 64);
         //Ground Hit detection rectangle
         rGround.setBounds(0, 430, 765, 1);
+        if (nX <= sPlayer.x){
+            nX+=nDx; 
+       } else if (nX >= sPlayer.x) {
+           nX-=nDx;
+       }
         if (rEnemy.intersects(rPlayer) && nX < sPlayer.x) {
-            nX -= nDx;
+            nX = nXstart;
+            nY = nYstart; 
+           //nX -= nDx;
             //nDx =0;
             System.out.println("Hit");
         } else if (rEnemy.intersects(rPlayer) && nX > sPlayer.x) {
-            nX += nDx;
+            nX = nXstart;
+            nY = nYstart;
+            //nX += nDx;
         }
         if (rGround.intersects(rPlayer)) {
             sPlayer.y = 380;
@@ -112,11 +125,11 @@ public class PanBoard extends JPanel implements ActionListener {
             int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nDir = 1;
-                nX += nDx;
+                //nX += nDx;
                 bMove = true;
             } else if (code == KeyEvent.VK_D) {
                 nDir = 3;
-                nX -= nDx;
+                //nX -= nDx;
                 bMove = true;
 
             } else if (code == KeyEvent.VK_W && bJump) {
