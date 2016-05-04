@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 public class Background {
 
-    public int nbgX, nbgY, nspeedX, nScroll, nScroll2;
+    private int nbgX, nbgY, nspeedX, nScroll, nScroll2;
 
     public Background(int x, int y) {
         nScroll = x;
