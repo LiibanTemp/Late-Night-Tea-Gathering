@@ -40,7 +40,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bJump = false;
         //nY += nDy;
 //        nX += nDx;
-        nDx = 5;
+        nDx = 6;
         nY = 376;
         sPlayer = new Sprite(sFile, 350, 380, true);
         sEnemy = new Sprite(sFile2, 200, 405, false);
@@ -74,27 +74,27 @@ public class PanBoard extends JPanel implements ActionListener {
             nX -= nDx;
         }
         if (rEnemy.intersects(rPlayer)) {
+            nY = nYstart;
+            nX = nXstart;
+            nX = 0;
             sPlayer.y = nYstart2;
-            sPlayer.x = nXstart2;
             bJump = true;
-            System.out.println("Nur");
             sPlayer.dy = 0;
         }
-        if (rEnemy.intersects(rPlayer) && nX < sPlayer.x) {
-            nX = nXstart;
-            nY = nYstart;
-            //nX -= nDx;
-            //nDx =0;
-        } else if (rEnemy.intersects(rPlayer) && nX > sPlayer.x) {
-            nX = nXstart;
-            nY = nYstart;
-            //nX += nDx;
-        }
+//        if (rEnemy.intersects(rPlayer) && nX < sPlayer.x) {
+//            nX = nXstart;
+//            nY = nYstart;
+//            //nX -= nDx;
+//            //nDx =0;
+//        } else if (rEnemy.intersects(rPlayer) && nX > sPlayer.x) {
+//            nX = nXstart;
+//            nY = nYstart;
+//            //nX += nDx;
+//        }
         if (rGround.intersects(rPlayer)) {
-            sPlayer.y = 380;
+            sPlayer.y = nYstart2;
             bJump = true;
             sPlayer.dy = 0;
-            //System.out.println("Hit");
         } else {
             bJump = false;
         }
@@ -132,7 +132,7 @@ public class PanBoard extends JPanel implements ActionListener {
             int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nDir = 1;
-               // nX += nDx;
+                //nX += nDx;
                 bMove = true;
             } else if (code == KeyEvent.VK_D) {
                 nDir = 3;
