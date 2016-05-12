@@ -8,16 +8,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
-
-    static boolean drawn = false;
-    Rectangle rB, rP;
-    //private Player p;
-    //private Enemy e;
     Sprite sPlayer, sEnemy;
     private Timer timer;
     private Image background;
-    static String sName;
-    Label JLabel;
     int nChange = 1, nScroll, nScroll2, nPY, nX, nY, nDx, nDy;
     int nXstart, nYstart, nYstart2, nXstart2;
     String sFile, sFile2;
@@ -34,12 +27,9 @@ public class PanBoard extends JPanel implements ActionListener {
         rPlayer = new Rectangle();
         rEnemy = new Rectangle();
         rGround = new Rectangle();
-        //nSpriteX = 0; // this variable is used to get the proper image from the spritesheet. I will use nDir
         nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
         bJump = false;
-        //nY += nDy;
-//        nX += nDx;
         nDx = 6;
         nY = 376;
         sPlayer = new Sprite(sFile, 350, 380, true);
@@ -60,7 +50,6 @@ public class PanBoard extends JPanel implements ActionListener {
         nYstart = nY;
         nYstart2 = sPlayer.y;
         nXstart2 = sPlayer.x;
-        //nDx = 5;
         sPlayer.move();
         sEnemy.move();
         bg1.update();
@@ -77,19 +66,9 @@ public class PanBoard extends JPanel implements ActionListener {
             nY = nYstart;
             nX = nXstart;
             sPlayer.y = nYstart2;
-            bJump = true;
+            sPlayer.x = nXstart2;
             sPlayer.dy = 0;
         }
-//        if (rEnemy.intersects(rPlayer) && nX < sPlayer.x) {
-//            nX = nXstart;
-//            nY = nYstart;
-//            //nX -= nDx;
-//            //nDx =0;
-//        } else if (rEnemy.intersects(rPlayer) && nX > sPlayer.x) {
-//            nX = nXstart;
-//            nY = nYstart;
-//            //nX += nDx;
-//        }
         if (rGround.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
             bJump = true;
@@ -127,7 +106,6 @@ public class PanBoard extends JPanel implements ActionListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            // why split up the keyPressed function???
             int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nDir = 1;
