@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
+
     Sprite sPlayer, sEnemy;
     private Timer timer;
     private Image background;
@@ -57,10 +58,14 @@ public class PanBoard extends JPanel implements ActionListener {
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
         rEnemy.setBounds(nX, nY, 60, 64);
         rGround.setBounds(0, 430, 765, 1);
-        if (nX <= sPlayer.x) {
+        if (nX <= 0) {
             nX += nDx;
-        } else if (nX >= sPlayer.x) {
+            System.out.println(nX);
+        } else if (nX >= 765) {
             nX -= nDx;
+            //nX = 0;
+        } else {
+            nX += nDx;
         }
         if (rEnemy.intersects(rPlayer)) {
             nY = nYstart;
@@ -113,7 +118,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 bMove = true;
             } else if (code == KeyEvent.VK_D) {
                 nDir = 3;
-               // nX -= nDx;
+                // nX -= nDx;
                 bMove = true;
             } else if (code == KeyEvent.VK_W && bJump) {
                 sPlayer.dy = -15;
