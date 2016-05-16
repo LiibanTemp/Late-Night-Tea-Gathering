@@ -21,12 +21,12 @@ public class PanBoard extends JPanel implements ActionListener {
     static int nDir, nADir;
     BufferedImage biPlayer, biEnemy, biAttack;
     private static Background bg1, bg2;
-    static boolean bMove, bJump, bAttack;
+    static boolean bMove, bJump, bAttack, bLeft, bRight;
     Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
 
     public PanBoard() {
         //Images
-        sPSprite = "Walk (2) copy.png";
+        sPSprite = "Walk (2).png";
         sESprite = "Sanic.png";
         sASprite = "Attack.png";
         
