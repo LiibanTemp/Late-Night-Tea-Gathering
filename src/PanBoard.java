@@ -21,12 +21,12 @@ public class PanBoard extends JPanel implements ActionListener {
     static int nDir, nADir;
     BufferedImage biPlayer, biEnemy, biAttack;
     private static Background bg1, bg2;
-    static boolean bMove, bJump, bAttack;
+    static boolean bMove, bJump, bAttack, bExist, bLeft, bRight;
     Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
 
     public PanBoard() {
         //Images
-        sPSprite = "Walk (2) copy.png";
+        sPSprite = "Walk (2).png";
         sESprite = "Sanic.png";
         sASprite = "Attack.png";
         
@@ -42,6 +42,9 @@ public class PanBoard extends JPanel implements ActionListener {
         bMove = false;
         bJump = false;
         bAttack = false;
+        bLeft = false;
+        bRight = false;
+        bExist = true;
         nEnemyY = 376;
         sPlayer = new Sprite(sPSprite, 350, 380, true);
         sEnemy = new Sprite(sESprite, 200, 405, false);
@@ -73,8 +76,8 @@ public class PanBoard extends JPanel implements ActionListener {
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
         rEnemy.setBounds(nEnemyX, nEnemyY, 75, 64);
         rEnemy2.setBounds(nEnemyX2, nEnemyY, 75, 64);
-        rAttackR.setBounds(sPlayer.getX() + 20, sPlayer.getY(), 186, 55);
-        rAttackL.setBounds(sPlayer.getX() - 120, sPlayer.getY(), 186, 55);
+        rAttackR.setBounds(sPlayer.getX(), sPlayer.getY(), 150, 55);
+        rAttackL.setBounds(sPlayer.getX() - 60, sPlayer.getY(), 186, 55);
         rGround.setBounds(0, 430, 765, 1);
         
         //Hit Detection Code
@@ -93,29 +96,36 @@ public class PanBoard extends JPanel implements ActionListener {
             sPlayer.x = nXstart2;
             sPlayer.dy = 0;
             bJump = true;
-            nEnemyX2 = 700;
+            bExist = false;
         }
         if (rEnemy.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
             sPlayer.x = nXstart2;
             sPlayer.dy = 0;
             bJump = true;
-            nEnemyX = 0;
+            bExist = false;
         }
-        if (rEnemy.intersects(rEnemy2)) {
-            nEnemyX = 0;
-            nEnemyX2 = 700;
-        }
+//        if (rEnemy.intersects(rEnemy2)) {
+//            nEnemyX = 0;
+//            nEnemyX2 = 700;
+//        }
         if (rGround.intersects(rPlayer)) {
             sPlayer.y = 380;
+            sPlayer.dy = 0;
             bJump = true;
         } else {
             bJump = false;
         }
-        if(rEnemy.intersects(rAttackR) || rEnemy.intersects(rAttackL)){
+        if(bAttack && rEnemy.intersects(rAttackR) && bRight){
             nEnemyX = 0;
         }
-        if(rEnemy2.intersects(rAttackR) || rEnemy2.intersects(rAttackL)){
+        if(bAttack && rEnemy.intersects(rAttackL) && bLeft){
+            nEnemyX = 0;
+        }
+        if(bAttack && rEnemy2.intersects(rAttackR) && bRight){
+            nEnemyX2 = 700;
+        }
+        if(bAttack && rEnemy2.intersects(rAttackL) && bLeft){
             nEnemyX2 = 700;
         }
         
@@ -127,6 +137,7 @@ public class PanBoard extends JPanel implements ActionListener {
         }
         if (bMove) {
             biPlayer = sPlayer.getSprite(nDir);
+            biAttack = sAttack.getAttackSprite(nADir);
         } else {
             biPlayer = sPlayer.getPlayerStill();
             biEnemy = sEnemy.getEnemyStill();
@@ -145,10 +156,14 @@ public class PanBoard extends JPanel implements ActionListener {
         g2d.drawImage(biEnemy, nEnemyX, nEnemyY, null);//Enemy 1
         g2d.drawImage(biEnemy, nEnemyX2, nEnemyY, null);//Enemy 2
         if(bAttack == true && nADir == 1){//Attack Left
-           g2d.drawImage(biAttack, sPlayer.getX() - 120, sPlayer.getY(), null); 
+           g2d.drawImage(biAttack, sPlayer.getX() - 120, sPlayer.getY(), null);
+           bLeft = true;
+           bRight = false;
         }
         if(bAttack == true && nADir == 0){//Attack Right
            g2d.drawImage(biAttack, sPlayer.getX() + 20, sPlayer.getY(), null); 
+           bLeft = false;
+           bRight = true;
         }
 
     }
