@@ -77,8 +77,8 @@ public class PanBoard extends JPanel implements ActionListener {
 
         //Hit Detection Bounds
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
-        rEnemy.setBounds(nEnemyX, nEnemyY, 75, 64);
-        rEnemy2.setBounds(nEnemyX2, nEnemyY2, 75, 64);
+        rEnemy.setBounds(nEnemyX, nEnemyY, 60, 64);
+        rEnemy2.setBounds(nEnemyX2, nEnemyY2, 74, 64);
         rAttackR.setBounds(sPlayer.getX(), sPlayer.getY(), 150, 55);
         rAttackL.setBounds(sPlayer.getX() - 60, sPlayer.getY(), 186, 55);
         rGround.setBounds(0, 430, 765, 1);
@@ -96,21 +96,21 @@ public class PanBoard extends JPanel implements ActionListener {
         }
         if (rEnemy2.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
-            nEnemyX = nXstart;
+            nEnemyX2 = nXstart3;
             sPlayer.dy = 0;
             bJump = true;
             bExist = false;
         }
         if (rEnemy.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
-            nEnemyX2 = nXstart3;
+            nEnemyX = nXstart;
             sPlayer.dy = 0;
             bJump = true;
             bExist = false;
         }
         if (rEnemy.intersects(rEnemy2)) {
             nEnemyX = nXstart;
-            nEnemyX2 = nXstart3 + 20;
+            nEnemyX2 = nXstart3;
         }
         if (rGround.intersects(rPlayer)) {
             sPlayer.y = 380;
