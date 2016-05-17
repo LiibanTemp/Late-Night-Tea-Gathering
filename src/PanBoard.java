@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
 
-    Sprite sPlayer, sEnemy, sAttack;
+    Sprite sPlayer, sEnemy, sAttack, s;
     private Timer timer;
     private Image background;
     int nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyY, nEnemyY2, nDx, nDy;
@@ -23,6 +23,7 @@ public class PanBoard extends JPanel implements ActionListener {
     private static Background bg1, bg2;
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight;
     Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
+    ArrayList<Sprite> alSprite = new ArrayList<>();
 
     public PanBoard() {
         //Images
@@ -48,8 +49,10 @@ public class PanBoard extends JPanel implements ActionListener {
         nEnemyY = 376;
         nEnemyY2 = 376;
         sPlayer = new Sprite(sPSprite, 350, 380, true);
-        sEnemy = new Sprite(sESprite, 200, 405, false);
+//        sEnemy = new Sprite(sESprite, 200, 405, false);
         sAttack = new Sprite(sASprite, 350, 380, true);
+        s = new Sprite(sESprite, 200, 405, false);
+        alSprite.add(s);
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -71,7 +74,7 @@ public class PanBoard extends JPanel implements ActionListener {
         nXstart3 = nEnemyY2;
         nDx = 5;
         sPlayer.move();
-        sEnemy.move();
+        s.move();
         bg1.update();
         bg2.update();
 
@@ -143,7 +146,7 @@ public class PanBoard extends JPanel implements ActionListener {
             biAttack = sAttack.getAttackSprite(nADir);
         } else {
             biPlayer = sPlayer.getPlayerStill();
-            biEnemy = sEnemy.getEnemyStill();
+            biEnemy = s.getEnemyStill();
             biAttack = sAttack.getAttackSprite(nADir);
         }
         repaint();
