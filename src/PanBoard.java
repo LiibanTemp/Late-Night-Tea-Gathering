@@ -24,7 +24,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight;
     Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
     ArrayList<Sprite> alSprite = new ArrayList<>();
-
+    
     public PanBoard() {
         //Images
         sPSprite = "Walk (2).png";
@@ -72,7 +72,10 @@ public class PanBoard extends JPanel implements ActionListener {
         nXstart2 = sPlayer.x;
         nYstart3 = nEnemyX2;
         nXstart3 = nEnemyY2;
+       // nEnemyX = 0 + (int)(Math.random()) * 376;
+        //nEnemyX2 = 0 + (int)(Math.random() * 376);
         nDx = 5;
+        nEnemyX += nDx;
         sPlayer.move();
         s.move();
         bg1.update();
@@ -81,9 +84,9 @@ public class PanBoard extends JPanel implements ActionListener {
         //Hit Detection Bounds
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
         rEnemy.setBounds(nEnemyX, nEnemyY, 60, 64);
-        rEnemy2.setBounds(nEnemyX2, nEnemyY2, 74, 64);
-        rAttackR.setBounds(sPlayer.getX(), sPlayer.getY(), 150, 55);
-        rAttackL.setBounds(sPlayer.getX() - 60, sPlayer.getY(), 186, 55);
+        rEnemy2.setBounds(nEnemyX2, nEnemyY2, 60, 64);
+        rAttackR.setBounds(sPlayer.getX() + 20, sPlayer.getY(), 150, 55);
+        rAttackL.setBounds(sPlayer.getX() - 120, sPlayer.getY(), 150, 55);
         rGround.setBounds(0, 430, 765, 1);
 
         //Hit Detection Code
@@ -103,6 +106,7 @@ public class PanBoard extends JPanel implements ActionListener {
             sPlayer.dy = 0;
             bJump = true;
             bExist = false;
+            //System.out.println("why");
         }
         if (rEnemy.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
@@ -124,15 +128,19 @@ public class PanBoard extends JPanel implements ActionListener {
         }
         if (bAttack && rEnemy.intersects(rAttackR) && bRight) {
             nEnemyX = 0;
+            nEnemyX = -376 + (int)(Math.random()) * 376;
         }
         if (bAttack && rEnemy.intersects(rAttackL) && bLeft) {
             nEnemyX = 0;
+            nEnemyX = -376 + (int)(Math.random()) * 376;
         }
         if (bAttack && rEnemy2.intersects(rAttackR) && bRight) {
             nEnemyX2 = 700;
+            nEnemyX2 = 376 + (int)(Math.random() * 1300);
         }
         if (bAttack && rEnemy2.intersects(rAttackL) && bLeft) {
             nEnemyX2 = 700;
+            nEnemyX2 = 376 + (int)(Math.random() * 1300);
         }
 
         //Sprite Updating
