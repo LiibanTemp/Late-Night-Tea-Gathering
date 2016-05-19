@@ -72,8 +72,6 @@ public class PanBoard extends JPanel implements ActionListener {
         nXstart2 = sPlayer.x;
         nYstart3 = nEnemyX2;
         nXstart3 = nEnemyY2;
-       // nEnemyX = 0 + (int)(Math.random()) * 376;
-        //nEnemyX2 = 0 + (int)(Math.random() * 376);
         nDx = 5;
         nEnemyX += nDx;
         sPlayer.move();
@@ -192,7 +190,6 @@ public class PanBoard extends JPanel implements ActionListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            // why split up the keyPressed function???
             int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nDir = 1;
