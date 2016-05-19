@@ -15,7 +15,7 @@ public class Sprite {
     private static final int TILE_SIZEY = 64;
     private static final int ATTACK_TILE_SIZEX = 186;
     private static final int ATTACK_TILE_SIZEY = 55;
-    int x, y, dx, dy, nDir, nGridX, nAGridX, nADir;
+    int x, y, dx, nDir, nGridX, nAGridX, nADir;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
     Rectangle p;
@@ -23,10 +23,10 @@ public class Sprite {
 
     public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
         sFile = _sFile;
-        x = 350;
-        y = 380;
+        x = _x;
+        y = _y;
         dx = 0;
-        dy = 0;
+        //dy = 0;
         bJump = false;
         nGridX = 0; // the first sprite sheet image.
         nAGridX = 0;
@@ -37,11 +37,11 @@ public class Sprite {
         }
     }
 
-    public void move() {
-        dy += nGravity;
-        y += dy;
-        x += dx;
-    }
+//    public void move() {
+//        dy += nGravity;
+//        y += dy;
+//        x += dx;
+//    }
 
     public int getX() {
         return x;
