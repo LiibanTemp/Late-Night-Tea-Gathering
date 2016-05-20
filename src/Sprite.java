@@ -73,25 +73,21 @@ public class Sprite {
         return biSpriteSheet.getSubimage(nAttackGridX++ * ATTACK_KNIGHT_TILE_SIZEX, nADir * ATTACK_KNIGHT_TILE_SIZEY, ATTACK_KNIGHT_TILE_SIZEX, ATTACK_KNIGHT_TILE_SIZEY);
     }
 
-    public BufferedImage getDeathSprite() {//Death Sprite Animation
-        if (nDeathGridX == 6) {
-            nDeathGridX = 0;
-        }
-        return biSpriteSheet.getSubimage(nDeathGridX++ * DEATH_TILE_SIZEX, DEATH_TILE_SIZEY, DEATH_TILE_SIZEX, DEATH_TILE_SIZEY);
-    }
+//    public BufferedImage getDeathSprite() {//Death Sprite Animation
+//        if (nDeathGridX == 6) {
+//            nDeathGridX = 0;
+//        }
+//        return biSpriteSheet.getSubimage(nDeathGridX++ * DEATH_TILE_SIZEX,nDir * DEATH_TILE_SIZEY, DEATH_TILE_SIZEX, DEATH_TILE_SIZEY);
+//    }
 
     public BufferedImage getForceSprite() {//Force Sprite Animation
         if (nForceGridX == 7) {
             nForceGridX = 0;
         }
-        return biSpriteSheet.getSubimage(nForceGridX++ * FORCE_KNIGHT_TILE_SIZEX, FORCE_KNIGHT_TILE_SIZEY, FORCE_KNIGHT_TILE_SIZEX, FORCE_KNIGHT_TILE_SIZEY);
+        return biSpriteSheet.getSubimage(nForceGridX++ * FORCE_KNIGHT_TILE_SIZEX, nDir * FORCE_KNIGHT_TILE_SIZEY, FORCE_KNIGHT_TILE_SIZEX, FORCE_KNIGHT_TILE_SIZEY);
     }
 
-    public BufferedImage getPlayerStill() {
+    public BufferedImage getStill() {
         return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, TILE_SIZEX, TILE_SIZEY);
-    }
-
-    public BufferedImage getEnemyStill() {
-        return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, 75, TILE_SIZEY);
     }
 }

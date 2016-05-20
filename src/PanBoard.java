@@ -14,15 +14,18 @@ public class PanBoard extends JPanel implements ActionListener {
 
     Sprite sPlayer, sEnemy, sAttack, sDeath, sForce;
     private Timer timer;
-    private Image background;
-    int nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyY, nDx, nDy;
+    private Image background, End;
+    int nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyY, nDx, nDy, nHealth;
     int nXstart, nYstart, nYstart2, nXstart2;
-    String sPSprite, sESprite, sASprite, sDSprite, sFSprite;
+    String sPSprite, sESprite, sASprite, sDSprite, sFSprite, sHealth;
     static int nDir, nADir;
-    BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce;
+    BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd;
     private static Background bg1, bg2;
-    static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce;
+    static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce, bDeath;
     Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
+    //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
+    Color White = new Color(128, 128, 128);
+    Font font = new Font ("Verdana", Font.BOLD, 25);
 
     public PanBoard() {
         //Images
@@ -46,9 +49,12 @@ public class PanBoard extends JPanel implements ActionListener {
         bAttack = false;
         bLeft = false;
         bRight = false;
-        bExist = true;
+        //bExist = true;
         bForce = false;
         nEnemyY = 376;
+        nHealth = 100;//500 for actual game, 100 for testing
+        sHealth = "";
+
         sPlayer = new Sprite(sPSprite, 350, 380, true);
         sEnemy = new Sprite(sESprite, 200, 405, false);
         sAttack = new Sprite(sASprite, 350, 380, true);
@@ -60,7 +66,9 @@ public class PanBoard extends JPanel implements ActionListener {
         setFocusable(true);
         ImageIcon i1 = new ImageIcon("Tea2.jpg");
         background = i1.getImage();
-        timer = new Timer(10, this);
+        ImageIcon i2 = new ImageIcon("Died.jpg");
+        End = i2.getImage();
+        timer = new Timer(60, this);
         timer.start();
         nEnemyX2 = 700;
     }
@@ -78,11 +86,11 @@ public class PanBoard extends JPanel implements ActionListener {
         bg2.update();
 
         //Hit Detection Bounds
-        rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
-        rEnemy.setBounds(nEnemyX, nEnemyY, 75, 64);
-        rEnemy2.setBounds(nEnemyX2, nEnemyY, 75, 64);
-        rAttackR.setBounds(sPlayer.getX(), sPlayer.getY(), 150, 55);
-        rAttackL.setBounds(sPlayer.getX() - 60, sPlayer.getY(), 186, 55);
+        rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 64, 50);
+        rEnemy.setBounds(nEnemyX, nEnemyY, 64, 64);
+        rEnemy2.setBounds(nEnemyX2, nEnemyY, 64, 64);
+        rAttackR.setBounds(sPlayer.getX() + 20, sPlayer.getY(), 150, 55);
+        rAttackL.setBounds(sPlayer.getX() - 120, sPlayer.getY(), 150, 55);
         rGround.setBounds(0, 430, 765, 1);
 
         //Hit Detection Code
@@ -101,14 +109,16 @@ public class PanBoard extends JPanel implements ActionListener {
             sPlayer.x = nXstart2;
             sPlayer.dy = 0;
             bJump = true;
-            bExist = false;
+            //bExist = false;
+            nHealth -= 1;
         }
         if (rEnemy.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
             sPlayer.x = nXstart2;
             sPlayer.dy = 0;
             bJump = true;
-            bExist = false;
+            //bExist = false;
+            nHealth -= 1;
         }
         if (bForce) {
             nEnemyX = 0;
@@ -123,15 +133,19 @@ public class PanBoard extends JPanel implements ActionListener {
         }
         if (bAttack && rEnemy.intersects(rAttackR) && bRight) {
             nEnemyX = 0;
+            nEnemyX = -376 + (int) (Math.random() * 376);
         }
         if (bAttack && rEnemy.intersects(rAttackL) && bLeft) {
             nEnemyX = 0;
+            nEnemyX = -376 + (int) (Math.random() * 376);
         }
         if (bAttack && rEnemy2.intersects(rAttackR) && bRight) {
             nEnemyX2 = 700;
+            nEnemyX2 = 376 + (int) (Math.random() * 1300);
         }
         if (bAttack && rEnemy2.intersects(rAttackL) && bLeft) {
             nEnemyX2 = 700;
+            nEnemyX2 = 376 + (int) (Math.random() * 1300);
         }
 
         //Sprite Updating
@@ -143,12 +157,20 @@ public class PanBoard extends JPanel implements ActionListener {
         if (bMove) {
             biPlayer = sPlayer.getSprite(nDir);
             biAttack = sAttack.getAttackSprite(nADir);
-            biForce = sForce.getForceSprite();
+            //biForce = sForce.getForceSprite();
+            //biDeath = sDeath.getDeathSprite();
         } else {
-            biPlayer = sPlayer.getPlayerStill();
-            biEnemy = sEnemy.getEnemyStill();
+            biPlayer = sPlayer.getStill();
+            biEnemy = sEnemy.getStill();
             biAttack = sAttack.getAttackSprite(nADir);
             biForce = sForce.getForceSprite();
+            //biDeath = sDeath.getDeathSprite();
+        }
+        if (nHealth <= 0) {
+            sHealth = "Health: 0";
+            biDeath = sDeath.getStill();           
+        }else {
+            sHealth = "Health: " + nHealth;
         }
         repaint();
     }
@@ -159,23 +181,31 @@ public class PanBoard extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         g.drawImage(background, bg1.getnScroll(), 0, this);
         g.drawImage(background, bg2.getnScroll2(), 0, this);
-        g2d.drawImage(biPlayer, sPlayer.getX(), sPlayer.getY(), null);
-        g2d.drawImage(biEnemy, nEnemyX, nEnemyY, null);//Enemy 1
-        g2d.drawImage(biEnemy, nEnemyX2, nEnemyY, null);//Enemy 2
-        if (bAttack == true && nADir == 1) {//Attack Left
-            g2d.drawImage(biAttack, sPlayer.getX() - 120, sPlayer.getY(), null);
-            bLeft = true;
-            bRight = false;
+        g.setColor(White);
+        g.setFont(font);
+        g.drawString(sHealth, 0, 20);
+        //g.drawRect(0, 0, 75, 20);
+        if (nHealth > 0) {
+            g2d.drawImage(biPlayer, sPlayer.getX(), sPlayer.getY(), null);
+            g2d.drawImage(biEnemy, nEnemyX, nEnemyY, null);//Enemy 1
+            g2d.drawImage(biEnemy, nEnemyX2, nEnemyY, null);//Enemy 2
+            if (bAttack == true && nADir == 1) {//Attack Left
+                g2d.drawImage(biAttack, sPlayer.getX() - 120, sPlayer.getY(), null);
+                bLeft = true;
+                bRight = false;
+            }
+            if (bAttack == true && nADir == 0) {//Attack Right
+                g2d.drawImage(biAttack, sPlayer.getX() + 20, sPlayer.getY(), null);
+                bLeft = false;
+                bRight = true;
+            }
+            if (bForce) {//Force Animation
+                g2d.drawImage(biForce, sPlayer.getX(), sPlayer.getY(), null);
+            }
+        } else {
+            g2d.drawImage(biDeath, sPlayer.getX(), sPlayer.getY() + 5, null);
+            g2d.drawImage(End, 0, 150, null);
         }
-        if (bAttack == true && nADir == 0) {//Attack Right
-            g2d.drawImage(biAttack, sPlayer.getX() + 20, sPlayer.getY(), null);
-            bLeft = false;
-            bRight = true;
-        }
-        if (bForce) {//Force Animation
-            g2d.drawImage(biForce, sPlayer.getX(), sPlayer.getY(), null);
-        }
-
     }
 
     private class Movement extends KeyAdapter {
