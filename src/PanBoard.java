@@ -15,7 +15,7 @@ public class PanBoard extends JPanel implements ActionListener {
     Sprite sPlayer, sEnemy, sAttack, sEnemys;
     private Timer timer;
     private Image background;
-    int nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyX3, nEnemyY, nEnemyY2, nDx, nDy, nGravity;
+    double nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyX3, nEnemyY, nEnemyY2, nDx, nDy, nGravity;
     int nXstart, nYstart, nYstart2, nXstart2, nXstart3, nXstart4, nYstart3;
     String sPSprite, sESprite, sASprite;
     static int nDir, nADir;
@@ -23,7 +23,7 @@ public class PanBoard extends JPanel implements ActionListener {
     private static Background bg1, bg2;
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight;
     Rectangle rPlayer, rEnemys, rGround, rEnemy2, rAttackL, rAttackR, rEnemy3;
-    ArrayList<Sprite> alSprite = new ArrayList<>();
+    //ArrayList<Sprite> alSprite = new ArrayList<>();
 
     public PanBoard() {
         //Images
@@ -47,14 +47,14 @@ public class PanBoard extends JPanel implements ActionListener {
         bLeft = false;
         bRight = false;
         bExist = true;
-        nGravity = 1;
+        nGravity = 0.80;
         nEnemyY = 376;
         // nEnemyY2 = 376;
         sPlayer = new Sprite(sPSprite, 350, 380, true);
 //        sEnemy = new Sprite(sESprite, 200, 405, false);
         sAttack = new Sprite(sASprite, 350, 380, true);
-        sEnemys = new Sprite(sESprite, 0, 405, false);
-        alSprite.add(sEnemys);
+        sEnemy = new Sprite(sESprite, 0, 376, false);
+        //alSprite.add(sEnemys);
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -71,8 +71,8 @@ public class PanBoard extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
         nDy += nGravity;
         sPlayer.y += nDy;
-        nXstart = sEnemys.x;
-        nYstart = nEnemyY;
+       // nXstart = sEnemys.x;
+        nYstart = sEnemy.y;
         nYstart2 = sPlayer.y;
         nXstart2 = sPlayer.x;
         // nYstart3 = nEnemyX2;
@@ -88,7 +88,7 @@ public class PanBoard extends JPanel implements ActionListener {
 
         //Hit Detection Bounds
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 32, 50);
-        rEnemys.setBounds(sEnemys.x, sEnemys.y, 60, 64);
+        rEnemys.setBounds(sEnemy.x, sEnemy.y, 60, 64);
         //rEnemy3.setBounds(nEnemyX3, nEnemyY, 60, 64);
         //rEnemy2.setBounds(nEnemyX2, nEnemyY2, 60, 64);
         rAttackR.setBounds(sPlayer.getX() + 20, sPlayer.getY(), 150, 55);
@@ -96,10 +96,10 @@ public class PanBoard extends JPanel implements ActionListener {
         rGround.setBounds(0, 430, 765, 1);
 
         //Hit Detection Code
-        if (sEnemys.x < sPlayer.x) {
-            sEnemys.x += nDx;
-        } else if (sEnemys.x > sPlayer.x) {
-            sEnemys.x -= nDx;
+        if (sEnemy.x < sPlayer.x) {
+            sEnemy.x += nDx;
+        } else if (sEnemy.x > sPlayer.x) {
+            sEnemy.x -= nDx;
         }
 //        if (nEnemyX2 > sPlayer.x) {
 //            nEnemyX2 -= nDx;
@@ -120,7 +120,7 @@ public class PanBoard extends JPanel implements ActionListener {
 //        }
         if (rEnemys.intersects(rPlayer)) {
             sPlayer.y = nYstart2;
-             sEnemy.x = nXstart;
+            //sEnemy.x = nXstart;
             nDy = 0;
             bJump = true;
             bExist = false;
@@ -145,25 +145,20 @@ public class PanBoard extends JPanel implements ActionListener {
 //            nEnemyX3 = nXstart4;
 //        }
         if (rGround.intersects(rPlayer)) {
-            sPlayer.y = 380;
+            sPlayer.y = nYstart2;
             nDy = 0;
             bJump = true;
         } else {
             bJump = false;
         }
-        if (rGround.intersects(rEnemys)) {
-            sEnemys.y = 380;
-            bJump = true;
-        } else {
-            bJump = false;
-        }
+        
         if (bAttack && rEnemys.intersects(rAttackR) && bRight) {
             //nEnemyX = 0;
-            sEnemys.x = -376 + (int) (Math.random()) * 376;
+            sEnemy.x = -376 + (int) (Math.random()) * 376;
         }
         if (bAttack && rEnemys.intersects(rAttackL) && bLeft) {
             //nEnemyX = 0;
-            sEnemys.x = -376 + (int) (Math.random()) * 376;
+            sEnemy.x = -376 + (int) (Math.random()) * 376;
         }
 //        if (bAttack && rEnemy2.intersects(rAttackR) && bRight) {
 //            //nEnemyX2 = 700;
@@ -193,7 +188,7 @@ public class PanBoard extends JPanel implements ActionListener {
             biAttack = sAttack.getAttackSprite(nADir);
         } else {
             biPlayer = sPlayer.getPlayerStill();
-            biEnemy = sEnemys.getEnemyStill();
+            biEnemy = sEnemy.getEnemyStill();
             biAttack = sAttack.getAttackSprite(nADir);
         }
         repaint();
@@ -206,7 +201,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.drawImage(background, bg1.getnScroll(), 0, this);
         g.drawImage(background, bg2.getnScroll2(), 0, this);
         g2d.drawImage(biPlayer, sPlayer.getX(), sPlayer.getY(), null);
-        g2d.drawImage(biEnemy, sEnemys.x, sEnemys.y, null);//Enemy 1
+        g2d.drawImage(biEnemy, sEnemy.x, sEnemy.y, null);//Enemy 1
         //g2d.drawImage(biEnemy, nEnemyX3, nEnemyY, null);//Enemy 3
         //g2d.drawImage(biEnemy, nEnemyX2, nEnemyY2, null);//Enemy 2
         if (bAttack == true && nADir == 1) {//Attack Left
@@ -239,7 +234,7 @@ public class PanBoard extends JPanel implements ActionListener {
             } else if (code == KeyEvent.VK_D) {
                 nDir = 3;
                 bMove = true;
-            } else if (code == KeyEvent.VK_W && bJump) {
+            } else if (code == KeyEvent.VK_W && bJump == true) {
                 nDy = -15;
             }
             if (code == KeyEvent.VK_SPACE) {
