@@ -13,7 +13,7 @@ public class Background {
         nScroll2 = x + 765;
         nspeedX = 5;
     }
-
+    //hOW BOUT THIS THEN BOI?
     public void update() {
         if (PanBoard.bMove()){
         if (PanBoard.nDir() == 1) {
