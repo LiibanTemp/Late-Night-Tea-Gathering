@@ -69,7 +69,7 @@ public class Sprite {
     public BufferedImage getPlayerStill() {
         return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, TILE_SIZEX, TILE_SIZEY);
     }
-     public BufferedImage getEnemyStill() {
+     public BufferedImage getEnemy() {
         return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, 75, TILE_SIZEY);
     }
 }
