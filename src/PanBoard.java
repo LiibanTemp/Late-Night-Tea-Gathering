@@ -48,13 +48,8 @@ public class PanBoard extends JPanel implements ActionListener {
         bRight = false;
         bExist = true;
         nGravity = 0.80;
-        nEnemyY = 376;
-        // nEnemyY2 = 376;
         sPlayer = new Sprite(sPSprite, 350, 380, true);
-//        sEnemy = new Sprite(sESprite, 200, 405, false);
         sAttack = new Sprite(sASprite, 350, 380, true);
-//        sEnemy1 = new Sprite(sESprite, 0, 376, false);
-//        sEnemy2 = new Sprite(sESprite, 480, 376, false);
         sEnemy1 = new Sprite(sESprite, 0, 376, false);
         sEnemy2 = new Sprite(sESprite, 550, 376, false);
         //alEnemys.add(sEnemys);
@@ -66,8 +61,6 @@ public class PanBoard extends JPanel implements ActionListener {
         background = i1.getImage();
         timer = new Timer(30, this);
         timer.start();
-        // nEnemyX2 = 700;
-        // nEnemyX3 = 90;
     }
 
     @Override
