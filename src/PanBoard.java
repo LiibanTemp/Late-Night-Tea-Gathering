@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
+
 public class PanBoard extends JPanel implements ActionListener {
 
     Sprite sPlayer, sEnemy1, sEnemy2, sAttack, sEnemys;
@@ -23,7 +24,8 @@ public class PanBoard extends JPanel implements ActionListener {
     private static Background bg1, bg2;
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight;
     Rectangle rPlayer, rEnemy1, rGround, rEnemy2, rAttackL, rAttackR, rEnemy3;
-    ArrayList<Sprite> alEnemys = new ArrayList<>();
+   // String BGM = "BGM.wav";
+   // ArrayList<Sprite> alEnemys = new ArrayList<>();
 
     public PanBoard() {
         //Images
@@ -76,6 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         nDx = 10;
         bg1.update();
         bg2.update();
+       // bgm.update();
         //Hit Detection Bounds
         rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 64, 50);
         rEnemy1.setBounds(sEnemy1.x, sEnemy1.y, 60, 64);
