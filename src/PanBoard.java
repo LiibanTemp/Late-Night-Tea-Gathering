@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
 
-    Sprite sPlayer, sEnemy, sAttack, sDeath, sForce;
+    Sprite sprPlayer, sprEnemy, sprAttack, sprDeath, sprForce;
     private Timer timer;
     private Image background, End;
     int nScroll, nScroll2, nEnemyX, nEnemyX2, nEnemyY, nDx, nDy;
@@ -64,11 +64,11 @@ public class PanBoard extends JPanel implements ActionListener {
         sMPCool = "";
         sScore = "";
 
-        sPlayer = new Sprite(sPSprite, 350, 380, true);
-        sEnemy = new Sprite(sESprite, 200, 405, false);
-        sAttack = new Sprite(sASprite, 350, 380, true);
-        sForce = new Sprite(sFSprite, 350, 380, true);
-        sDeath = new Sprite(sDSprite, 350, 380, true);
+        sprPlayer = new Sprite(sPSprite, 350, 380, true);
+        sprEnemy = new Sprite(sESprite, 200, 405, false);
+        sprAttack = new Sprite(sASprite, 350, 380, true);
+        sprForce = new Sprite(sFSprite, 350, 380, true);
+        sprDeath = new Sprite(sDSprite, 350, 380, true);
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -88,61 +88,61 @@ public class PanBoard extends JPanel implements ActionListener {
 
         nXstart = nEnemyX;
         nYstart = nEnemyY;
-        nYstart2 = sPlayer.y;
-        nXstart2 = sPlayer.x;
+        nYstart2 = sprPlayer.y;
+        nXstart2 = sprPlayer.x;
         nXstart3 = nEnemyX2;
         nYstart3 = nEnemyY;
         nDx = 5;
-        sPlayer.move();
-        sEnemy.move();
+        sprPlayer.move();
+        sprEnemy.move();
         bg1.update();
         bg2.update();
 
         //Hit Detection Bounds
-        rPlayer.setBounds(sPlayer.getX(), sPlayer.getY(), 64, 50);
+        rPlayer.setBounds(sprPlayer.getX(), sprPlayer.getY(), 64, 50);
         rEnemy.setBounds(nEnemyX, nEnemyY, 64, 64);
         rEnemy2.setBounds(nEnemyX2, nEnemyY, 64, 64);
-        rAttackR.setBounds(sPlayer.getX() + 20, sPlayer.getY(), 150, 55);
-        rAttackL.setBounds(sPlayer.getX() - 120, sPlayer.getY(), 120, 55);
+        rAttackR.setBounds(sprPlayer.getX() + 20, sprPlayer.getY(), 150, 55);
+        rAttackL.setBounds(sprPlayer.getX() - 120, sprPlayer.getY(), 120, 55);
         rGround.setBounds(0, 430, 765, 1);
 
         //Hit Detection Code
         if (nHealth > 0) {
-            if (nEnemyX < sPlayer.x) {
+            if (nEnemyX < sprPlayer.x) {
                 nEnemyX += nDx;
-            } else if (nEnemyX > sPlayer.x) {
+            } else if (nEnemyX > sprPlayer.x) {
                 nEnemyX -= nDx;
             }
-            if (nEnemyX2 > sPlayer.x) {
+            if (nEnemyX2 > sprPlayer.x) {
                 nEnemyX2 -= nDx;
-            } else if (nEnemyX2 < sPlayer.x) {
+            } else if (nEnemyX2 < sprPlayer.x) {
                 nEnemyX2 += nDx;
             }
             if (rEnemy2.intersects(rPlayer) || rEnemy.intersects(rPlayer)) {
-                sPlayer.y = nYstart2;
+                sprPlayer.y = nYstart2;
                 nEnemyX = nXstart;
                 nEnemyX2 = nXstart3;
-                sPlayer.dy = 0;
+                sprPlayer.dy = 0;
                 bJump = true;
                 //bExist = false;
                 nHealth -= 1;
             }
-            if (rEnemy.intersects(rPlayer) && sPlayer.y < 380) {
-                sPlayer.y = nYstart2;
-                sPlayer.x = nXstart2;
+            if (rEnemy.intersects(rPlayer) && sprPlayer.y < 380) {
+                sprPlayer.y = nYstart2;
+                sprPlayer.x = nXstart2;
                 nEnemyX = -376 + (int) (Math.random() * 376);
                 //nEnemyX2 = 376 + (int) (Math.random() * 1300);
-                sPlayer.dy = 0;
+                sprPlayer.dy = 0;
                 bJump = true;
                 nScore += 1;
                 //nHealth += 1;
             }
-            if (rEnemy2.intersects(rPlayer) && sPlayer.y < 380) {
-                sPlayer.y = nYstart2;
-                sPlayer.x = nXstart2;
+            if (rEnemy2.intersects(rPlayer) && sprPlayer.y < 380) {
+                sprPlayer.y = nYstart2;
+                sprPlayer.x = nXstart2;
                 //nEnemyX = -376 + (int) (Math.random() * 376);
                 nEnemyX2 = 376 + (int) (Math.random() * 1300);
-                sPlayer.dy = 0;
+                sprPlayer.dy = 0;
                 bJump = true;
                 nScore += 1;
                 //nHealth += 1;
@@ -154,8 +154,8 @@ public class PanBoard extends JPanel implements ActionListener {
                 nEnemyX2 = 700;
             }
             if (rGround.intersects(rPlayer)) {
-                sPlayer.y = 380;
-                sPlayer.dy = 0;
+                sprPlayer.y = 380;
+                sprPlayer.dy = 0;
                 bJump = true;
             } else {
                 bJump = false;
@@ -188,22 +188,22 @@ public class PanBoard extends JPanel implements ActionListener {
                 nADir = 0;
             }
             if (bMove) {
-                biPlayer = sPlayer.getSprite(nDir);
-                biAttack = sAttack.getAttackSprite(nADir);
-                //biForce = sForce.getForceSprite();
-                //biDeath = sDeath.getDeathSprite();
+                biPlayer = sprPlayer.getSprite(nDir);
+                biAttack = sprAttack.getAttackSprite(nADir);
+                //biForce = sprForce.getForceSprite();
+                //biDeath = sprDeath.getDeathSprite();
             } else {
-                biPlayer = sPlayer.getStill();
-                biEnemy = sEnemy.getStill();
-                biAttack = sAttack.getAttackSprite(nADir);
-                biForce = sForce.getForceSprite();
-                //biDeath = sDeath.getDeathSprite();
+                biPlayer = sprPlayer.getStill();
+                biEnemy = sprEnemy.getStill();
+                biAttack = sprAttack.getAttackSprite(nADir);
+                biForce = sprForce.getForceSprite();
+                //biDeath = sprDeath.getDeathSprite();
             }
             sHealth = "Health: " + nHealth;
 
         } else if (nHealth <= 0) {
             sHealth = "Health: 0";
-            biDeath = sDeath.getStill();
+            biDeath = sprDeath.getStill();
         }
 
         //MpP Managing Code
@@ -233,7 +233,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.setFont(font);
 
         if (nHealth > 0) {
-            g2d.drawImage(biPlayer, sPlayer.getX(), sPlayer.getY(), null);
+            g2d.drawImage(biPlayer, sprPlayer.getX(), sprPlayer.getY(), null);
             g2d.drawImage(biEnemy, nEnemyX, nEnemyY, null);//Enemy 1
             g2d.drawImage(biEnemy, nEnemyX2, nEnemyY, null);//Enemy 2
 
@@ -246,25 +246,25 @@ public class PanBoard extends JPanel implements ActionListener {
             g.drawString(sScore, 0, 60);
 
             if (bAttack == true && nADir == 1) {//Attack Left
-                g2d.drawImage(biAttack, sPlayer.getX() - 120, sPlayer.getY(), null);
+                g2d.drawImage(biAttack, sprPlayer.getX() - 120, sprPlayer.getY(), null);
                 bLeft = true;
                 bRight = false;
             }
 
             if (bAttack == true && nADir == 0) {//Attack Right
-                g2d.drawImage(biAttack, sPlayer.getX() + 20, sPlayer.getY(), null);
+                g2d.drawImage(biAttack, sprPlayer.getX() + 20, sprPlayer.getY(), null);
                 bLeft = false;
                 bRight = true;
             }
 
             if (bForce) {//Force Animation
-                g2d.drawImage(biForce, sPlayer.getX(), sPlayer.getY(), null);
+                g2d.drawImage(biForce, sprPlayer.getX(), sprPlayer.getY(), null);
             }
 
         } else {
             g.setColor(Black);
             g2d.fillRect(0, 0, 765, 480);
-            g2d.drawImage(biDeath, sPlayer.getX(), 385, null);
+            g2d.drawImage(biDeath, sprPlayer.getX(), 385, null);
             g2d.drawImage(End, 0, 150, null);
             g.setColor(White);
             g.drawString(sScore, 0, 20);
@@ -292,7 +292,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 bMove = true;
             } else if (code == KeyEvent.VK_W) {
-                sPlayer.dy = -15;
+                sprPlayer.dy = -15;
             }
             if (code == KeyEvent.VK_SPACE && nMP > 0) {//Attack
                 bAttack = true;
