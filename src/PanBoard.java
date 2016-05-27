@@ -294,15 +294,15 @@ public class PanBoard extends JPanel implements ActionListener {
             } else if (code == KeyEvent.VK_W) {
                 sPlayer.dy = -15;
             }
-            if (code == KeyEvent.VK_J && nMP > 0) {//Attack
+            if (code == KeyEvent.VK_SPACE && nMP > 0) {//Attack
                 bAttack = true;
                 nMP -= 5;
             }
-            if (code == KeyEvent.VK_K && nMP > 0) {//Force
+            if (code == KeyEvent.VK_F && nMP > 0) {//Force
                 bForce = true;
                 nMP -= 20;
             }
-            if (code == KeyEvent.VK_L && nMP > 0) {//Healing
+            if (code == KeyEvent.VK_G && nMP > 0) {//Healing
                 nMP = 0;
                 nHealth = 100;
             }
