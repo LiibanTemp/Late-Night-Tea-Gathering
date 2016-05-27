@@ -20,6 +20,7 @@ public class Sprite {
 //    private static final int DEATH_TILE_SIZEX = 65;
 //    private static final int DEATH_TILE_SIZEY = 63;
     int x, y, dx, dy, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
+    int nMP, nHealth;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
     Rectangle p;
@@ -72,13 +73,6 @@ public class Sprite {
         }
         return biSpriteSheet.getSubimage(nAttackGridX++ * ATTACK_KNIGHT_TILE_SIZEX, nADir * ATTACK_KNIGHT_TILE_SIZEY, ATTACK_KNIGHT_TILE_SIZEX, ATTACK_KNIGHT_TILE_SIZEY);
     }
-
-//    public BufferedImage getDeathSprite() {//Death Sprite Animation
-//        if (nDeathGridX == 6) {
-//            nDeathGridX = 0;
-//        }
-//        return biSpriteSheet.getSubimage(nDeathGridX++ * DEATH_TILE_SIZEX,nDir * DEATH_TILE_SIZEY, DEATH_TILE_SIZEX, DEATH_TILE_SIZEY);
-//    }
 
     public BufferedImage getForceSprite() {//Force Sprite Animation
         if (nForceGridX == 7) {
