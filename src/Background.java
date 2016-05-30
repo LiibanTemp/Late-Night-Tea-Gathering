@@ -6,14 +6,13 @@ import java.awt.event.KeyEvent;
 
 public class Background {
 
-    private int nbgX, nbgY, nspeedX, nScroll, nScroll2;
+    private int nspeedX, nScroll, nScroll2;
 
     public Background(int x, int y) {
         nScroll = x;
         nScroll2 = x + 765;
         nspeedX = 5;
     }
-    //hOW BOUT THIS THEN BOI?
     public void update() {
         if (PanBoard.bMove()){
         if (PanBoard.nDir() == 1) {

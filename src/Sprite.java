@@ -17,10 +17,9 @@ public class Sprite {
     private static final int ATTACK_KNIGHT_TILE_SIZEY = 55;
     private static final int FORCE_KNIGHT_TILE_SIZEX = 64;
     private static final int FORCE_KNIGHT_TILE_SIZEY = 60;
-//    private static final int DEATH_TILE_SIZEX = 65;
-//    private static final int DEATH_TILE_SIZEY = 63;
+
     int x, y, dx, dy, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
-    int nMP, nHealth;
+    int nMP, nHealth, nMPCool;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
     Rectangle p;
@@ -32,6 +31,9 @@ public class Sprite {
         y = 380;
         dx = 0;
         dy = 0;
+        nHealth = 100;//500 for actual game, 100 for testing
+        nMP = 200;//MP, Used to preform action
+        nMPCool = 50;//MP Cooldown variable
         bJump = false;
         nGridX = 0; // the first sprite sheet image.
         nAttackGridX = 0;
@@ -43,6 +45,10 @@ public class Sprite {
             e.printStackTrace();
         }
     }
+    public void GetHealth(){
+        
+    }
+            
 
     public void move() {
         dy += nGravity;
