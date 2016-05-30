@@ -174,6 +174,69 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 nScore += 1;
             }
+            /* if (sprEnemy.GetRect().intersects(sprPlayer.GetRect()) 
+                    || sprEnemy.GetRect().intersects(sprPlayer.GetRect())) {
+                sprPlayer.y = nYstart2;
+                nEnemyX = nXstart;
+                nEnemyX2 = nXstart3;
+                sprPlayer.dy = 0;
+                bJump = true;
+                //bExist = false;
+                nHealth -= 1;
+            }
+            if (sprEnemy.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
+                sprPlayer.y = nYstart2;
+                sprPlayer.x = nXstart2;
+                nEnemyX = -376 + (int) (Math.random() * 376);
+                //nEnemyX2 = 376 + (int) (Math.random() * 1300);
+                sprPlayer.dy = 0;
+                bJump = true;
+                nScore += 1;
+                //nHealth += 1;
+            }
+            if (sprEnemy.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
+                sprPlayer.y = nYstart2;
+                sprPlayer.x = nXstart2;
+                //nEnemyX = -376 + (int) (Math.random() * 376);
+                nEnemyX2 = 376 + (int) (Math.random() * 1300);
+                sprPlayer.dy = 0;
+                bJump = true;
+                nScore += 1;
+                //nHealth += 1;
+            }
+
+
+            if (bForce) {
+                nEnemyX = 0;
+                nEnemyX2 = 700;
+            }
+            if (sprGround.GetRect().intersects(sprPlayer.GetRect())) {
+                sprPlayer.y = 380;
+                sprPlayer.dy = 0;
+                bJump = true;
+            } else {
+                bJump = false;
+            }
+            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bRight) {
+                nEnemyX = 0;
+                nEnemyX = -376 + (int) (Math.random() * 376);
+                nScore += 1;
+            }
+            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
+                nEnemyX = 0;
+                nEnemyX = -376 + (int) (Math.random() * 376);
+                nScore += 1;
+            }
+            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bRight) {
+                nEnemyX2 = 700;
+                nEnemyX2 = 376 + (int) (Math.random() * 1300);
+                nScore += 1;
+            }
+            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
+                nEnemyX2 = 700;
+                nEnemyX2 = 376 + (int) (Math.random() * 1300);
+                nScore += 1;
+            }*/
 
             //Sprite Updating
             if (nDir == 1) {//left attack
