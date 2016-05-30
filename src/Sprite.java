@@ -19,6 +19,8 @@ public class Sprite {
     private static final int FORCE_KNIGHT_TILE_SIZEY = 60;
 
     int x, y, dx, dy, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
+    int nX, nY, nWidth, nHeight;
+    Rectangle r;
     int nMP, nHealth, nMPCool;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
@@ -45,8 +47,14 @@ public class Sprite {
             e.printStackTrace();
         }
     }
-    public void GetHealth(){
-        
+    public Rectangle GetRect(){
+        r.setBounds(x, y, nWidth,nHeight);
+//        rEnemy.setBounds(nEnemyX, nEnemyY, 64, 64);
+//        rEnemy2.setBounds(nEnemyX2, nEnemyY, 64, 64);
+//        rAttackR.setBounds(sprPlayer.getX() + 20, sprPlayer.getY(), 150, 55);
+//        rAttackL.setBounds(sprPlayer.getX() - 120, sprPlayer.getY(), 120, 55);
+//        rGround.setBounds(0, 430, 765, 1);
+        return r;
     }
             
 
