@@ -12,13 +12,13 @@ import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
 
-    Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttack, sprDeath, sprForce;
+    Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttack, sprDeath, sprForce, sprGround;
     private Timer timer;
     private Image background, End;
     int nScroll, nScroll2, nDx, nDy;
     int nXstart, nYstart, nYstart2, nXstart2, nXstart3, nYstart3;
     int nHealth, nMP, nMPCool, nScore;
-    String sPSprite, sESprite, sASprite, sDSprite, sFSprite;
+    String sPSprite, sESprite, sASprite, sDSprite, sFSprite, sGSprite;
     String sHealth, sMP, sMPCool, sScore;
     static int nDir, nADir;
     BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd;
@@ -37,6 +37,7 @@ public class PanBoard extends JPanel implements ActionListener {
         sASprite = "Attack.png";//Attack
         sDSprite = "Death.png";//Death
         sFSprite = "Force.png";//Force
+        sGSprite = "Ground.jpg";//Ground
 
         //Rectangles
         rPlayer = new Rectangle();
@@ -68,6 +69,7 @@ public class PanBoard extends JPanel implements ActionListener {
         sprAttack = new Sprite(sASprite, 350, 380, true);
         sprForce = new Sprite(sFSprite, 350, 380, true);
         sprDeath = new Sprite(sDSprite, 350, 380, true);
+        sprGround = new Sprite(sGSprite,0, 430, true );
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -189,7 +191,6 @@ public class PanBoard extends JPanel implements ActionListener {
                 biEnemy = sprEnemy1.getStill();
                 biAttack = sprAttack.getAttackSprite(nADir);
                 biForce = sprForce.getForceSprite();
-                //biDeath = sprDeath.getDeathSprite();
             }
             sHealth = "Health: " + nHealth;
 
