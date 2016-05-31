@@ -99,6 +99,6 @@ public class Sprite {
     }
 
     public BufferedImage getGround() {
-        return biSpriteSheet.getSubimage(0, 1, 765, 1);
+        return biSpriteSheet.getSubimage(0, 0, 765, 1);
     }
 }
