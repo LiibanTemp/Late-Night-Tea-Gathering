@@ -59,9 +59,9 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer = new Sprite(sPSprite, 350, 380, 64, 64, true);
         sprEnemy1 = new Sprite(sESprite, 0, 376, 60, 64, false);
         sprEnemy2 = new Sprite(sESprite, 550, 376, 60, 64, false);
-        sprAttackR = new Sprite(sASprite, 350, 380, 120, 55, true);
+        sprAttackR = new Sprite(sASprite, 360, 380, 120, 55, true);
         sprAttackL = new Sprite(sASprite, 200, 380, 150, 55, true);
-        sprForce = new Sprite(sFSprite, 350, 380, 0, 0, true);
+        sprForce = new Sprite(sFSprite, 350, 240, 0, 0, true);
         sprDeath = new Sprite(sDSprite, 350, 380, 0, 0, true);
         sprGround = new Sprite(sGSprite, 0, 440, 765, 1, true);
         bg1 = new Background(0, 0);
@@ -117,7 +117,6 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy1.x = nXstart;
-                sprEnemy2.x = nXstart3;
                 nDy = 0;
                 bJump = true;
                 //bExist = false;
@@ -260,7 +259,7 @@ public class PanBoard extends JPanel implements ActionListener {
             }
 
             if (bForce) {//Force Animation
-                g2d.drawImage(biForce, sprPlayer.getX(), sprPlayer.getY(), null);
+                g2d.drawImage(biForce, sprPlayer.getX(), 240, null);
             }
 
         } else {
