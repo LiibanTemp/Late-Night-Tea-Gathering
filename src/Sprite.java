@@ -45,12 +45,7 @@ public class Sprite {
         }
     }
     public Rectangle GetRect(){
-        r.setBounds(x, y, nWidth,nHeight);
-//        rEnemy.setBounds(nEnemyX, nEnemyY, 64, 64);
-//        rEnemy2.setBounds(nEnemyX2, nEnemyY, 64, 64);
-//        rAttackR.setBounds(sprPlayer.getX() + 20, sprPlayer.getY(), 150, 55);
-//        rAttackL.setBounds(sprPlayer.getX() - 120, sprPlayer.getY(), 120, 55);
-//        rGround.setBounds(0, 430, 765, 1);
+        r.setBounds(x, y, nWidth, nHeight);
         return r;
     }         
     public int getX() {
