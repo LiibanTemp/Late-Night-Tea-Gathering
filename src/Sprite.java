@@ -25,10 +25,12 @@ public class Sprite {
     boolean bJump, isAnim, isEnemy;
     String sFile;
 
-    public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
+      public Sprite(String _sFile, int _x, int _y, int _nWidth, int _nHeight, boolean _isAnim) {
         sFile = _sFile;
         x = _x;
         y = _y;
+        nHeight = _nHeight;
+        nWidth = _nWidth;
         r = new Rectangle();
         nHealth = 100;//500 for actual game, 100 for testing
         nMP = 200;//MP, Used to preform action

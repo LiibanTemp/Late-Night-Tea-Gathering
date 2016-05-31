@@ -64,13 +64,13 @@ public class PanBoard extends JPanel implements ActionListener {
         sMPCool = "";
         sScore = "";
 
-        sprPlayer = new Sprite(sPSprite, 350, 380, true);
-        sprEnemy1 = new Sprite(sESprite, 200, 376, false);
-        sprEnemy2 = new Sprite(sESprite, 550, 376, false);
-        sprAttack = new Sprite(sASprite, 350, 380, true);
-        sprForce = new Sprite(sFSprite, 350, 380, true);
-        sprDeath = new Sprite(sDSprite, 350, 380, true);
-        sprGround = new Sprite(sGSprite, 0, 430, true);
+        sprPlayer = new Sprite(sPSprite, 350, 380, 64, 64, true);
+        sprEnemy1 = new Sprite(sESprite, 200, 376, 64, 64, false);
+        sprEnemy2 = new Sprite(sESprite, 200, 376, 64, 64, false);
+        sprAttack = new Sprite(sASprite, 350, 380, 120, 55, true);
+        sprForce = new Sprite(sFSprite, 350, 380, 0, 0, true);
+        sprDeath = new Sprite(sDSprite, 350, 380, 0, 0, true);
+        sprGround = new Sprite(sGSprite,0, 430, 765, 1, true );
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
