@@ -57,8 +57,8 @@ public class PanBoard extends JPanel implements ActionListener {
         sScore = "";
 
         sprPlayer = new Sprite(sPSprite, 350, 380, 64, 64, true);
-        sprEnemy1 = new Sprite(sESprite, 0, 376, 64, 64, false);
-        sprEnemy2 = new Sprite(sESprite, 550, 376, 64, 64, false);
+        sprEnemy1 = new Sprite(sESprite, 0, 376, 60, 64, false);
+        sprEnemy2 = new Sprite(sESprite, 550, 376, 60, 64, false);
         sprAttackR = new Sprite(sASprite, 350, 380, 120, 55, true);
         sprAttackL = new Sprite(sASprite, 200, 380, 150, 55, true);
         sprForce = new Sprite(sFSprite, 350, 380, 0, 0, true);
@@ -114,10 +114,17 @@ public class PanBoard extends JPanel implements ActionListener {
             } else {
                 bJump = false;
             }
-            if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())
-                    || sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
+            if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy1.x = nXstart;
+                sprEnemy2.x = nXstart3;
+                nDy = 0;
+                bJump = true;
+                //bExist = false;
+                nHealth -= 1;
+            }
+            if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
+                sprPlayer.y = nYstart2;
                 sprEnemy2.x = nXstart3;
                 nDy = 0;
                 bJump = true;
@@ -131,6 +138,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprPlayer.dy = 0;
                 bJump = true;
                 nScore += 1;
+                System.out.println("hit");
                 //nHealth += 1;
             }
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
@@ -140,6 +148,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDy = 0;
                 bJump = true;
                 nScore += 1;
+                System.out.println("Hit");
                 //nHealth += 1;
             }
 
@@ -294,6 +303,10 @@ public class PanBoard extends JPanel implements ActionListener {
             if (code == KeyEvent.VK_F && nMP > 0) {//Force
                 bForce = true;
                 nMP -= 20;
+            }
+            if (code == KeyEvent.VK_F && nMP == 0 || code == KeyEvent.VK_SPACE && nMP == 0 ) {
+                bForce = false;
+                bAttack = false;
             }
             if (code == KeyEvent.VK_G && nMP > 0) {//Healing
                 nMP = 0;
