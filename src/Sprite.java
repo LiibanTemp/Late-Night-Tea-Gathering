@@ -17,7 +17,6 @@ public class Sprite {
     private static final int ATTACK_KNIGHT_TILE_SIZEY = 55;
     private static final int FORCE_KNIGHT_TILE_SIZEX = 64;
     private static final int FORCE_KNIGHT_TILE_SIZEY = 60;
-
     int x, y, dx, dy, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
     int nX, nY, nWidth, nHeight;
     Rectangle r;
@@ -44,10 +43,26 @@ public class Sprite {
             e.printStackTrace();
         }
     }
-    public Rectangle GetRect(){
+
+    public void Mana() {
+        if (nMP <= 0) {
+            //sMP = "MP: 0";
+            nMP = 0;
+            nMPCool--;
+        } else {
+            //sMP = "MP: " + nMP;
+        }
+        if (nMPCool <= 0) {//Problem area that needs to be fixed
+            nMPCool = 50;
+            nMP = 200;
+        }
+    }
+
+    public Rectangle GetRect() {
         r.setBounds(x, y, nWidth, nHeight);
         return r;
-    }         
+    }
+
     public int getX() {
         return x;
     }
@@ -81,5 +96,9 @@ public class Sprite {
 
     public BufferedImage getStill() {
         return biSpriteSheet.getSubimage(0 * TILE_SIZEX, nDir * TILE_SIZEY, TILE_SIZEX, TILE_SIZEY);
+    }
+
+    public BufferedImage getGround() {
+        return biSpriteSheet.getSubimage(0, 1, 765, 1);
     }
 }
