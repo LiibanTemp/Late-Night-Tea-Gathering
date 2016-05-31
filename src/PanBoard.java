@@ -65,12 +65,12 @@ public class PanBoard extends JPanel implements ActionListener {
         sScore = "";
 
         sprPlayer = new Sprite(sPSprite, 350, 380, 64, 64, true);
-        sprEnemy1 = new Sprite(sESprite, 200, 376, 64, 64, false);
-        sprEnemy2 = new Sprite(sESprite, 200, 376, 64, 64, false);
+        sprEnemy1 = new Sprite(sESprite, 0, 376, 64, 64, false);
+        sprEnemy2 = new Sprite(sESprite, 550, 376, 64, 64, false);
         sprAttack = new Sprite(sASprite, 350, 380, 120, 55, true);
         sprForce = new Sprite(sFSprite, 350, 380, 0, 0, true);
         sprDeath = new Sprite(sDSprite, 350, 380, 0, 0, true);
-        sprGround = new Sprite(sGSprite,0, 430, 765, 1, true );
+        sprGround = new Sprite(sGSprite, 0, 440, 765, 1, true);
         bg1 = new Background(0, 0);
         bg2 = new Background(765, 0);
         addKeyListener(new Movement());
@@ -125,7 +125,8 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprPlayer.y = nYstart2;
                 nDy = 0;
                 bJump = true;
-
+            } else {
+                bJump = false;
             }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())
                     || sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
@@ -291,7 +292,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 bMove = true;
             } else if (code == KeyEvent.VK_W && bJump == true) {
-                nDy = -15;
+                nDy = -10;
             }
             if (code == KeyEvent.VK_SPACE && nMP > 0) {//Attack
                 bAttack = true;
