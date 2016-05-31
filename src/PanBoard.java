@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class PanBoard extends JPanel implements ActionListener {
 
-    Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttack, sprDeath, sprForce, sprGround;
+    Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttackR, sprAttackL, sprDeath, sprForce, sprGround;
     private Timer timer;
     private Image background, End;
     double nScroll, nScroll2, nDx, nDy, nGravity;
@@ -24,7 +24,7 @@ public class PanBoard extends JPanel implements ActionListener {
     BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd, biGround;
     private static Background bg1, bg2;
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce, bDeath;
-    Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
+    //Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
     //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
     Color White = new Color(128, 128, 128);
     Color Black = new Color(0, 0, 0);
@@ -38,14 +38,6 @@ public class PanBoard extends JPanel implements ActionListener {
         sDSprite = "Death.png";//Death
         sFSprite = "Force.png";//Force
         sGSprite = "Ground.jpg";//Ground
-
-        //Rectangles
-        rPlayer = new Rectangle();
-        rEnemy = new Rectangle();
-        rEnemy2 = new Rectangle();
-        rGround = new Rectangle();
-        rAttackL = new Rectangle();
-        rAttackR = new Rectangle();
 
         nDir = 3; // right. 0 is forward 1 is left, and 2 is back - going toward me.
         bMove = false;
@@ -67,7 +59,8 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer = new Sprite(sPSprite, 350, 380, 64, 64, true);
         sprEnemy1 = new Sprite(sESprite, 0, 376, 64, 64, false);
         sprEnemy2 = new Sprite(sESprite, 550, 376, 64, 64, false);
-        sprAttack = new Sprite(sASprite, 350, 380, 120, 55, true);
+        sprAttackR = new Sprite(sASprite, 350, 380, 120, 55, true);
+        sprAttackL = new Sprite(sASprite, 200, 380, 150, 55, true);
         sprForce = new Sprite(sFSprite, 350, 380, 0, 0, true);
         sprDeath = new Sprite(sDSprite, 350, 380, 0, 0, true);
         sprGround = new Sprite(sGSprite, 0, 440, 765, 1, true);
@@ -85,7 +78,6 @@ public class PanBoard extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        //Color Black = new Color(0, 0, 0);
 
         nXstart = sprEnemy1.x;
         nYstart = sprEnemy1.y;
@@ -100,15 +92,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bg1.update();
         bg2.update();
 
-        //Hit Detection Bounds
-//        rPlayer.setBounds(sprPlayer.getX(), sprPlayer.getY(), 64, 50);
-//        rEnemy.setBounds(sprEnemy1.x, sprEnemy1.y, 64, 64);
-//        rEnemy2.setBounds(sprEnemy2.x, sprEnemy2.y, 64, 64);
-//        rAttackR.setBounds(sprPlayer.getX() + 20, sprPlayer.getY(), 150, 55);
-//        rAttackL.setBounds(sprPlayer.getX() - 120, sprPlayer.getY(), 120, 55);
-//        rGround.setBounds(0, 430, 765, 1);
 
-        //Hit Detection Code
         if (nHealth > 0) {
             if (sprEnemy1.x < sprPlayer.x) {
                 sprEnemy1.x += nDx;
@@ -120,6 +104,8 @@ public class PanBoard extends JPanel implements ActionListener {
             } else if (sprEnemy2.x < sprPlayer.x) {
                 sprEnemy2.x += nDx;
             }
+
+            //Hit Detection Code
             if (sprPlayer.GetRect().intersects(sprGround.GetRect())) {
                 sprPlayer.x = nXstart2;
                 sprPlayer.y = nYstart2;
@@ -162,20 +148,20 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x = 0;
                 sprEnemy2.x = 700;
             }
-            if (bAttack && sprEnemy1.GetRect().intersects(sprAttack.GetRect()) && bRight) {
-                sprEnemy1.x = 0 + (int) (Math.random() * 376);
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
+                sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy1.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
-                sprEnemy1.x = 0 + (int) (Math.random() * 376);
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
+                sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy2.GetRect().intersects(sprAttack.GetRect()) && bRight) {
-                sprEnemy2.x = 550 + (int) (Math.random() * 1300);
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
+                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy2.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
-                sprEnemy2.x = 550 + (int) (Math.random() * 1300);
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
+                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 nScore += 1;
             }
 
@@ -187,14 +173,21 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (bMove) {
                 biPlayer = sprPlayer.getSprite(nDir);
-                biAttack = sprAttack.getAttackSprite(nADir);
+                if (bAttack == true && nADir == 1) {
+                biAttack = sprAttackL.getAttackSprite(nADir);
+                } else if (bAttack == true && nADir == 0) {
+                  biAttack = sprAttackR.getAttackSprite(nADir);  
+                }
                 //biForce = sprForce.getForceSprite();
                 //biDeath = sprDeath.getDeathSprite();
             } else {
                 biPlayer = sprPlayer.getStill();
                 biEnemy = sprEnemy1.getStill();
-                biGround = sprGround.getGround();
-                biAttack = sprAttack.getAttackSprite(nADir);
+                if (bAttack == true && nADir == 1) {
+                biAttack = sprAttackL.getAttackSprite(nADir);
+                } else if (bAttack == true && nADir == 0) {
+                  biAttack = sprAttackR.getAttackSprite(nADir);  
+                }
                 biForce = sprForce.getForceSprite();
             }
             sHealth = "Health: " + nHealth;
