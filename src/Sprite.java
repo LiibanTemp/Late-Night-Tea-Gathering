@@ -24,19 +24,16 @@ public class Sprite {
     int nMP, nHealth, nMPCool;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
-    Rectangle p;
     String sFile;
 
     public Sprite(String _sFile, int _x, int _y, boolean _isAnim) {
         sFile = _sFile;
-        x = 350;
-        y = 380;
-        dx = 0;
-        dy = 0;
+        x = _x;
+        y = _y;
+        r = new Rectangle();
         nHealth = 100;//500 for actual game, 100 for testing
         nMP = 200;//MP, Used to preform action
         nMPCool = 50;//MP Cooldown variable
-        bJump = false;
         nGridX = 0; // the first sprite sheet image.
         nAttackGridX = 0;
         nForceGridX = 0;
@@ -55,15 +52,7 @@ public class Sprite {
 //        rAttackL.setBounds(sprPlayer.getX() - 120, sprPlayer.getY(), 120, 55);
 //        rGround.setBounds(0, 430, 765, 1);
         return r;
-    }
-            
-
-    public void move() {
-        dy += nGravity;
-        y += dy;
-        x += dx;
-    }
-
+    }         
     public int getX() {
         return x;
     }

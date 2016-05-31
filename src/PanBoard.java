@@ -15,7 +15,7 @@ public class PanBoard extends JPanel implements ActionListener {
     Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttack, sprDeath, sprForce, sprGround;
     private Timer timer;
     private Image background, End;
-    int nScroll, nScroll2, nDx, nDy;
+    double nScroll, nScroll2, nDx, nDy, nGravity;
     int nXstart, nYstart, nYstart2, nXstart2, nXstart3, nYstart3;
     int nHealth, nMP, nMPCool, nScore;
     String sPSprite, sESprite, sASprite, sDSprite, sFSprite, sGSprite;
@@ -66,6 +66,7 @@ public class PanBoard extends JPanel implements ActionListener {
 
         sprPlayer = new Sprite(sPSprite, 350, 380, true);
         sprEnemy1 = new Sprite(sESprite, 200, 405, false);
+        sprEnemy2 = new Sprite(sESprite, 200, 405, false);
         sprAttack = new Sprite(sASprite, 350, 380, true);
         sprForce = new Sprite(sFSprite, 350, 380, true);
         sprDeath = new Sprite(sDSprite, 350, 380, true);
@@ -93,8 +94,9 @@ public class PanBoard extends JPanel implements ActionListener {
         nXstart3 = sprEnemy2.x;
         nYstart3 = sprEnemy2.y;
         nDx = 5;
-        sprPlayer.move();
-        sprEnemy1.move();
+        nGravity = 0.50;
+        nDy += nGravity;
+        sprPlayer.y += nDy;
         bg1.update();
         bg2.update();
 
@@ -118,16 +120,22 @@ public class PanBoard extends JPanel implements ActionListener {
             } else if (sprEnemy2.x < sprPlayer.x) {
                 sprEnemy2.x += nDx;
             }
-            if (rEnemy2.intersects(rPlayer) || rEnemy.intersects(rPlayer)) {
+            if(sprGround.GetRect().intersects(sprPlayer.GetRect())){
+                sprPlayer.x = nXstart2;
+                sprPlayer.y = nYstart2;
+                nDy = 0;
+            }
+             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) 
+                    || sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy1.x = nXstart;
                 sprEnemy2.x = nXstart3;
-                sprPlayer.dy = 0;
+                nDy = 0;
                 bJump = true;
                 //bExist = false;
                 nHealth -= 1;
             }
-            if (rEnemy.intersects(rPlayer) && sprPlayer.y < 380) {
+            if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
                 sprPlayer.x = nXstart2;
                 sprEnemy1.x = -376 + (int) (Math.random() * 376);
@@ -137,106 +145,45 @@ public class PanBoard extends JPanel implements ActionListener {
                 nScore += 1;
                 //nHealth += 1;
             }
-            if (rEnemy2.intersects(rPlayer) && sprPlayer.y < 380) {
+            if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
                 sprPlayer.x = nXstart2;
                 //nEnemyX = -376 + (int) (Math.random() * 376);
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
-                sprPlayer.dy = 0;
+                nDy = 0;
                 bJump = true;
                 nScore += 1;
                 //nHealth += 1;
             }
+
+
             if (bForce) {
                 sprEnemy1.x = 0;
                 sprEnemy2.x = 700;
             }
-            if (rGround.intersects(rPlayer)) {
-                sprPlayer.y = 380;
-                sprPlayer.dy = 0;
-                bJump = true;
-            } else {
-                bJump = false;
-            }
-            if (bAttack && rEnemy.intersects(rAttackR) && bRight) {
-                sprEnemy1.x = -376 + (int) (Math.random() * 376);
-                nScore += 1;
-            }
-            if (bAttack && rEnemy.intersects(rAttackL) && bLeft) {
-                sprEnemy1.x = -376 + (int) (Math.random() * 376);
-                nScore += 1;
-            }
-            if (bAttack && rEnemy2.intersects(rAttackR) && bRight) {
-                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
-                nScore += 1;
-            }
-            if (bAttack && rEnemy2.intersects(rAttackL) && bLeft) {
-                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
-                nScore += 1;
-            }
-            /* if (sprEnemy.GetRect().intersects(sprPlayer.GetRect()) 
-                    || sprEnemy.GetRect().intersects(sprPlayer.GetRect())) {
-                sprPlayer.y = nYstart2;
-                nEnemyX = nXstart;
-                nEnemyX2 = nXstart3;
-                sprPlayer.dy = 0;
-                bJump = true;
-                //bExist = false;
-                nHealth -= 1;
-            }
-            if (sprEnemy.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
-                sprPlayer.y = nYstart2;
-                sprPlayer.x = nXstart2;
-                nEnemyX = -376 + (int) (Math.random() * 376);
-                //nEnemyX2 = 376 + (int) (Math.random() * 1300);
-                sprPlayer.dy = 0;
-                bJump = true;
-                nScore += 1;
-                //nHealth += 1;
-            }
-            if (sprEnemy.GetRect().intersects(sprPlayer.GetRect())  && sprPlayer.y < 380) {
-                sprPlayer.y = nYstart2;
-                sprPlayer.x = nXstart2;
-                //nEnemyX = -376 + (int) (Math.random() * 376);
-                nEnemyX2 = 376 + (int) (Math.random() * 1300);
-                sprPlayer.dy = 0;
-                bJump = true;
-                nScore += 1;
-                //nHealth += 1;
-            }
-
-
-            if (bForce) {
-                nEnemyX = 0;
-                nEnemyX2 = 700;
-            }
             if (sprGround.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = 380;
-                sprPlayer.dy = 0;
+                nDy = 0;
                 bJump = true;
             } else {
                 bJump = false;
             }
-            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bRight) {
-                nEnemyX = 0;
-                nEnemyX = -376 + (int) (Math.random() * 376);
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttack.GetRect()) && bRight) {
+                sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
-                nEnemyX = 0;
-                nEnemyX = -376 + (int) (Math.random() * 376);
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
+                sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bRight) {
-                nEnemyX2 = 700;
-                nEnemyX2 = 376 + (int) (Math.random() * 1300);
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttack.GetRect()) && bRight) {
+                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 nScore += 1;
             }
-            if (bAttack && sprEnemy.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
-                nEnemyX2 = 700;
-                nEnemyX2 = 376 + (int) (Math.random() * 1300);
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttack.GetRect()) && bLeft) {
+                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 nScore += 1;
-            }*/
+            }
 
             //Sprite Updating
             if (nDir == 1) {//left attack
