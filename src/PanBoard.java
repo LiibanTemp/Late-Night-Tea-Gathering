@@ -15,7 +15,8 @@ public class PanBoard extends JPanel implements ActionListener {
     Sprite sprPlayer, sprEnemy1, sprEnemy2, sprAttackR, sprAttackL, sprDeath, sprForce, sprGround;
     private Timer timer;
     private Image background, End;
-    double nScroll, nScroll2, nDx, nDy, nGravity;
+    int nScroll, nScroll2;
+    double dX, dX2, dY, dGravity;
     int nXstart, nYstart, nYstart2, nXstart2, nXstart3, nYstart3;
     int nHealth, nMP, nMPCool, nScore;
     String sPSprite, sESprite, sASprite, sDSprite, sFSprite, sGSprite;
@@ -24,7 +25,6 @@ public class PanBoard extends JPanel implements ActionListener {
     BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd, biGround;
     private static Background bg1, bg2;
     static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce, bDeath;
-    //Rectangle rPlayer, rEnemy, rGround, rEnemy2, rAttackL, rAttackR;
     //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
     Color White = new Color(128, 128, 128);
     Color Black = new Color(0, 0, 0);
@@ -51,6 +51,8 @@ public class PanBoard extends JPanel implements ActionListener {
         nMP = 200;//MP, Used to preform action
         nMPCool = 50;//MP Cooldown variable
         nScore = 0;
+        dX = 5;
+        dX2 = 5;
         sHealth = "";
         sMP = "";
         sMPCool = "";
@@ -85,31 +87,31 @@ public class PanBoard extends JPanel implements ActionListener {
         nXstart2 = sprPlayer.x;
         nXstart3 = sprEnemy2.x;
         nYstart3 = sprEnemy2.y;
-        nDx = 5;
-        nGravity = 0.50;
-        nDy += nGravity;
-        sprPlayer.y += nDy;
+        // dX = 5 + (int) (Math.random() * 10);
+        dGravity = 0.50;
+        dY += dGravity;
+        sprPlayer.y += dY;
         bg1.update();
         bg2.update();
 
 
         if (nHealth > 0) {
             if (sprEnemy1.x < sprPlayer.x) {
-                sprEnemy1.x += nDx;
+                sprEnemy1.x += dX;
             } else if (sprEnemy1.x > sprPlayer.x) {
-                sprEnemy1.x -= nDx;
+                sprEnemy1.x -= dX;
             }
             if (sprEnemy2.x > sprPlayer.x) {
-                sprEnemy2.x -= nDx;
+                sprEnemy2.x -= dX2;
             } else if (sprEnemy2.x < sprPlayer.x) {
-                sprEnemy2.x += nDx;
+                sprEnemy2.x += dX2;
             }
 
             //Hit Detection Code
             if (sprPlayer.GetRect().intersects(sprGround.GetRect())) {
                 sprPlayer.x = nXstart2;
                 sprPlayer.y = nYstart2;
-                nDy = 0;
+                dY = 0;
                 bJump = true;
             } else {
                 bJump = false;
@@ -117,7 +119,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy1.x = nXstart;
-                nDy = 0;
+                dY = 0;
                 bJump = true;
                 //bExist = false;
                 nHealth -= 1;
@@ -125,7 +127,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy2.x = nXstart3;
-                nDy = 0;
+                dY = 0;
                 bJump = true;
                 //bExist = false;
                 nHealth -= 1;
@@ -144,32 +146,43 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprPlayer.y = nYstart2;
                 sprPlayer.x = nXstart2;
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
-                nDy = 0;
+                dY = 0;
                 bJump = true;
                 nScore += 1;
                 System.out.println("Hit");
                 //nHealth += 1;
             }
-
-
+            if (sprEnemy1.GetRect().intersects(sprEnemy2.GetRect())) {
+                sprEnemy1.x = nXstart;
+                sprEnemy2.x = nXstart3;
+                dX = 0;
+            }
             if (bForce) {
                 sprEnemy1.x = 0;
                 sprEnemy2.x = 700;
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 sprEnemy1.x = -376 + (int) (Math.random() * 376);
+                dX = 5 + (Math.random() * 100);
+                 System.out.println(dX);
                 nScore += 1;
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
                 sprEnemy1.x = -376 + (int) (Math.random() * 376);
+                dX = 5 + (Math.random() * 10);
+                System.out.println(dX);
                 nScore += 1;
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
+                dX2 = 5 + (Math.random() * 10);
+                System.out.println(dX);
                 nScore += 1;
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
+                dX2 = 5 + (Math.random() * 10);
+                System.out.println(dX);
                 nScore += 1;
             }
 
@@ -182,9 +195,9 @@ public class PanBoard extends JPanel implements ActionListener {
             if (bMove) {
                 biPlayer = sprPlayer.getSprite(nDir);
                 if (bAttack == true && nADir == 1) {
-                biAttack = sprAttackL.getAttackSprite(nADir);
+                    biAttack = sprAttackL.getAttackSprite(nADir);
                 } else if (bAttack == true && nADir == 0) {
-                  biAttack = sprAttackR.getAttackSprite(nADir);  
+                    biAttack = sprAttackR.getAttackSprite(nADir);
                 }
                 //biForce = sprForce.getForceSprite();
                 //biDeath = sprDeath.getDeathSprite();
@@ -192,9 +205,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 biPlayer = sprPlayer.getStill();
                 biEnemy = sprEnemy1.getStill();
                 if (bAttack == true && nADir == 1) {
-                biAttack = sprAttackL.getAttackSprite(nADir);
+                    biAttack = sprAttackL.getAttackSprite(nADir);
                 } else if (bAttack == true && nADir == 0) {
-                  biAttack = sprAttackR.getAttackSprite(nADir);  
+                    biAttack = sprAttackR.getAttackSprite(nADir);
                 }
                 biForce = sprForce.getForceSprite();
             }
@@ -284,7 +297,6 @@ public class PanBoard extends JPanel implements ActionListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            // why split up the keyPressed function???
             int code = e.getKeyCode();
             if (code == KeyEvent.VK_A) {
                 nDir = 1;
@@ -293,7 +305,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 bMove = true;
             } else if (code == KeyEvent.VK_W && bJump == true) {
-                nDy = -10;
+                dY = -10;
             }
             if (code == KeyEvent.VK_SPACE && nMP > 0) {//Attack
                 bAttack = true;
@@ -303,7 +315,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 bForce = true;
                 nMP -= 20;
             }
-            if (code == KeyEvent.VK_F && nMP == 0 || code == KeyEvent.VK_SPACE && nMP == 0 ) {
+            if (code == KeyEvent.VK_F && nMP == 0 || code == KeyEvent.VK_SPACE && nMP == 0) {
                 bForce = false;
                 bAttack = false;
             }
