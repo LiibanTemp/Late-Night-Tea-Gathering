@@ -18,13 +18,14 @@ public class PanBoard extends JPanel implements ActionListener {
     int nScroll, nScroll2;
     double dX, dX2, dY, dGravity;
     int nXstart, nYstart, nYstart2, nXstart2, nXstart3, nYstart3;
-    int nHealth, nMP, nMPCool, nScore;
+    //int nHealth, nMP, nMPCool, 
+    int nScore;
     String sPSprite, sESprite, sASprite, sDSprite, sFSprite, sGSprite;
     String sHealth, sMP, sMPCool, sScore;
     static int nDir, nADir;
     BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd, biGround;
     private static Background bg1, bg2;
-    static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce, bDeath;
+    static boolean bMove, bJump, bAttack, bExist, bLeft, bRight, bForce, bDeath, bDamage, bHeal;
     //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
     Color White = new Color(128, 128, 128);
     Color Black = new Color(0, 0, 0);
@@ -47,9 +48,9 @@ public class PanBoard extends JPanel implements ActionListener {
         bRight = false;
         //bExist = true;
         bForce = false;
-        nHealth = 100;//500 for actual game, 100 for testing
-        nMP = 200;//MP, Used to preform action
-        nMPCool = 50;//MP Cooldown variable
+//        nHealth = 100;//500 for actual game, 100 for testing
+//        nMP = 200;//MP, Used to preform action
+//        nMPCool = 50;//MP Cooldown variable
         nScore = 0;
         dX = 5;
         dX2 = 5;
@@ -95,7 +96,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bg2.update();
 
 
-        if (nHealth > 0) {
+        if (sprPlayer.Health() > 0) {
             if (sprEnemy1.x < sprPlayer.x) {
                 sprEnemy1.x += dX;
             } else if (sprEnemy1.x > sprPlayer.x) {
@@ -122,7 +123,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 dY = 0;
                 bJump = true;
                 //bExist = false;
-                nHealth -= 1;
+                bDamage = true;
             }
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
@@ -130,7 +131,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 dY = 0;
                 bJump = true;
                 //bExist = false;
-                nHealth -= 1;
+                bDamage = true;
             }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
@@ -211,26 +212,27 @@ public class PanBoard extends JPanel implements ActionListener {
                 }
                 biForce = sprForce.getForceSprite();
             }
-            sHealth = "Health: " + nHealth;
+            sHealth = "Health: " + sprPlayer.Health();
 
-        } else if (nHealth <= 0) {
+        } else if (sprPlayer.Health() <= 0) {
             sHealth = "Health: 0";
             biDeath = sprDeath.getStill();
         }
 
         //MpP Managing Code
-        if (nMP <= 0) {
+        if (sprPlayer.Mana() <= 0) {
             sMP = "MP: 0";
-            nMP = 0;
-            nMPCool--;
+//            Sprite.nMP = 0;
+//            Sprite.nMPCool--;
         } else {
-            sMP = "MP: " + nMP;
+            sMP = "MP: " + sprPlayer.Mana();
+            //System.out.println(sMP);
         }
-        if (nMPCool <= 0) {//Problem area that needs to be fixed
-            nMPCool = 50;
-            nMP = 200;
-        }
-        sMPCool = "MP Cooldown: " + nMPCool;
+//        if (nMPCool <= 0) {//Problem area that needs to be fixed
+//            nMPCool = 50;
+//            nMP = 200;
+//        }
+        sMPCool = "MP Cooldown: " + Sprite.nMPCool;
         sScore = "Score: " + nScore;
         repaint();
     }
@@ -244,17 +246,15 @@ public class PanBoard extends JPanel implements ActionListener {
         g.setColor(White);
         g.setFont(font);
 
-        if (nHealth > 0) {
+         if (sprPlayer.Health() > 0) {
             g2d.drawImage(biPlayer, sprPlayer.getX(), sprPlayer.getY(), null);
             g2d.drawImage(biEnemy, sprEnemy1.x, sprEnemy1.y, null);//Enemy 1
             g2d.drawImage(biEnemy, sprEnemy2.x, sprEnemy2.y, null);//Enemy 2
-            g2d.drawImage(biGround, sprGround.getX(), sprGround.getY(), null);
-
 
             g.drawString(sHealth, 0, 20);
-            if (nMP > 0) {
+            if (sprPlayer.Mana() > 0) {
                 g.drawString(sMP, 0, 40);
-            } else if (nMP <= 0) {
+            } else if (sprPlayer.Mana() <= 0) {
                 g.drawString(sMPCool, 0, 40);
             }
             g.drawString(sScore, 0, 60);
@@ -282,7 +282,7 @@ public class PanBoard extends JPanel implements ActionListener {
             g2d.drawImage(End, 0, 150, null);
             g.setColor(White);
             g.drawString(sScore, 0, 20);
-            nMP = 0;
+            //nMP = 0;
         }
     }
 
@@ -305,23 +305,21 @@ public class PanBoard extends JPanel implements ActionListener {
                 nDir = 3;
                 bMove = true;
             } else if (code == KeyEvent.VK_W && bJump == true) {
-                dY = -10;
+                sprPlayer.dy = -15;
             }
-            if (code == KeyEvent.VK_SPACE && nMP > 0) {//Attack
+            if (code == KeyEvent.VK_SPACE && sprPlayer.Mana() > 0) {//Attack
                 bAttack = true;
-                nMP -= 5;
             }
-            if (code == KeyEvent.VK_F && nMP > 0) {//Force
+            if (code == KeyEvent.VK_F && sprPlayer.Mana() > 0) {//Force
                 bForce = true;
-                nMP -= 20;
             }
-            if (code == KeyEvent.VK_F && nMP == 0 || code == KeyEvent.VK_SPACE && nMP == 0) {
+            if (code == KeyEvent.VK_G && sprPlayer.Mana() > 0) {//Healing
+                bHeal = true;
+            }
+            if (code == KeyEvent.VK_F && sprPlayer.Mana() == 0 
+                    || code == KeyEvent.VK_SPACE && sprPlayer.Mana() == 0) {
                 bForce = false;
                 bAttack = false;
-            }
-            if (code == KeyEvent.VK_G && nMP > 0) {//Healing
-                nMP = 0;
-                nHealth = 100;
             }
         }
     }
