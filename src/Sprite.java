@@ -65,7 +65,7 @@ public class Sprite {
             nMP -= 5;
         }
         if(PanBoard.bForce == true){
-            nMP -= 4;
+            nMP -= 20;
         }
         if(PanBoard.bHeal == true){
             nMP = 0;
