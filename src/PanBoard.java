@@ -48,6 +48,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bRight = false;
         //bExist = true;
         bForce = false;
+        bDamage = false;
 //        nHealth = 100;//500 for actual game, 100 for testing
 //        nMP = 200;//MP, Used to preform action
 //        nMPCool = 50;//MP Cooldown variable
@@ -117,13 +118,19 @@ public class PanBoard extends JPanel implements ActionListener {
             } else {
                 bJump = false;
             }
+            if(sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) 
+                    || sprEnemy2.GetRect().intersects(sprPlayer.GetRect())){
+                bDamage = true;
+            } else{
+                bDamage = false;
+            }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy1.x = nXstart;
                 dY = 0;
                 bJump = true;
                 //bExist = false;
-                bDamage = true;
+                
             }
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
@@ -131,7 +138,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 dY = 0;
                 bJump = true;
                 //bExist = false;
-                bDamage = true;
+                //bDamage = true;
             }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;

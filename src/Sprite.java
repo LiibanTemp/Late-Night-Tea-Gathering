@@ -33,7 +33,7 @@ public class Sprite {
         nHeight = _nHeight;
         nWidth = _nWidth;
         r = new Rectangle();
-        nHealth = 100;//500 for actual game, 100 for testing
+        nHealth = 300;//500 for actual game, 100 for testing
         nMP = 200;//MP, Used to preform action, 600 for actual game
         nMPCool = 50;//MP Cooldown variable
         nGridX = 0; // the first sprite sheet image.
@@ -69,7 +69,7 @@ public class Sprite {
         }
         if(PanBoard.bHeal == true){
             nMP = 0;
-            nHealth = 100;
+            nHealth += 100;
         }
         return nMP;
     }
