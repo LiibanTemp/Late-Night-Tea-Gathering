@@ -18,7 +18,7 @@ public class Sprite {
     private static final int FORCE_KNIGHT_TILE_SIZEX = 64;
     private static final int FORCE_KNIGHT_TILE_SIZEY = 60;
 
-    int x, y, dx, dy, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
+    int x, y, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
     int nX, nY, nWidth, nHeight;
     Rectangle r;
     public static int nMP, nHealth, nMPCool, nScore;

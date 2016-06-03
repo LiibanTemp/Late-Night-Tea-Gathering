@@ -138,8 +138,8 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
                 sprPlayer.x = nXstart2;
-                sprEnemy1.x = -376 + (int) (Math.random() * 376);
-                sprPlayer.dy = 0;
+                sprEnemy1.x = -400 + (int) (Math.random() * 300);
+                dY = 0;
                 bJump = true;
                 nScore += 1;
                 System.out.println("hit");
@@ -148,7 +148,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
                 sprPlayer.x = nXstart2;
-                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
+                sprEnemy2.x = 300 + (int) (Math.random() * 1300);
                 dY = 0;
                 bJump = true;
                 nScore += 1;
