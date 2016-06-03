@@ -158,7 +158,6 @@ public class PanBoard extends JPanel implements ActionListener {
             if (sprEnemy1.GetRect().intersects(sprEnemy2.GetRect())) {
                 sprEnemy1.x = nXstart;
                 sprEnemy2.x = nXstart3;
-                dX = 0;
             }
             if (bForce) {
                 sprEnemy1.x = 0;
