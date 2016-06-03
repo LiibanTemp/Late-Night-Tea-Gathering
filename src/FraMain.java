@@ -47,7 +47,7 @@ public class FraMain extends JFrame {
                     ex.printStackTrace();
                 }
 
-                JFrame frame = new JFrame("Testing");
+                JFrame frame = new JFrame("Late Night Tea Gathering");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.add(new TestPane());
                 frame.pack();
@@ -179,6 +179,9 @@ public class FraMain extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index = menuItems.indexOf(selectMenuItem);
+               // if(index == 0 && isSelected){
+                    
+                //}
                 if (index < 0) {
                     selectMenuItem = menuItems.get(0);
                 }
