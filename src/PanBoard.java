@@ -89,17 +89,12 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer.Mana();
         // dX = 5 + (int) (Math.random() * 10);
         //nMP = Sprite.nMP;
-        dGravity = 0.80;
+        dGravity = 0.50;
         dY += dGravity;
         sprPlayer.y += dY;
         bg1.update();
         bg2.update();
-        if (bJump == true) {
-            System.out.println("true");
-        } else if (bJump == false) {
-            System.out.println("false");
-        }
-
+        
         if (sprPlayer.Health() > 0) {
             if (sprEnemy1.x < sprPlayer.x) {
                 sprEnemy1.x += dX;
