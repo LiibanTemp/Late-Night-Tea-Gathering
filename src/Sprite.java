@@ -47,7 +47,10 @@ public class Sprite {
         }
     }
     public int Health(){
-        if(PanBoard.bDamage){
+        if(PanBoard.bDamage1){
+            nHealth -= 1;
+        }
+        if(PanBoard.bDamage2){
             nHealth -= 1;
         }
         return nHealth;

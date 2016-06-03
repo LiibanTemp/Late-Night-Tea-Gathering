@@ -24,7 +24,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static int nDir, nADir;
     BufferedImage biPlayer, biEnemy, biAttack, biDeath, biForce, biEnd, biGround;
     private static Background bg1, bg2;
-    static boolean bMove, bJump, bAttack, bLeft, bRight, bForce, bDeath, bDamage, bHeal;
+    static boolean bMove, bJump, bAttack, bLeft, bRight, bForce, bDeath, bDamage1, bDamage2, bHeal;
     //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
     Color White = new Color(128, 128, 128);
     Color Black = new Color(0, 0, 0);
@@ -46,7 +46,8 @@ public class PanBoard extends JPanel implements ActionListener {
         bLeft = false;
         bRight = false;
         bForce = false;
-        bDamage = false;
+        bDamage1 = false;
+        bDamage2 = false;
         nScore = 0;
         //nMP = 0;
         dX = 5;
@@ -121,10 +122,10 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x = nXstart;
                 dY = 0;
                 bJump = true;
-                bDamage = true;
+                bDamage1 = true;
                 
             }else{
-                bDamage = false;
+                bDamage1 = false;
             } 
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
@@ -132,9 +133,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 dY = 0;
                 bJump = true;
                 //bExist = false;
-                bDamage = true;
+                bDamage2 = true;
             }else{
-                bDamage = false;
+                bDamage2 = false;
             }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
                 sprPlayer.y = nYstart2;
