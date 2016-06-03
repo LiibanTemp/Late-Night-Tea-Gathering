@@ -89,12 +89,16 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer.Mana();
         // dX = 5 + (int) (Math.random() * 10);
         //nMP = Sprite.nMP;
-        dGravity = 0.50;
+        dGravity = 0.80;
         dY += dGravity;
         sprPlayer.y += dY;
         bg1.update();
         bg2.update();
-
+        if (bJump == true) {
+            System.out.println("true");
+        } else if (bJump == false) {
+            System.out.println("false");
+        }
 
         if (sprPlayer.Health() > 0) {
             if (sprEnemy1.x < sprPlayer.x) {
@@ -123,10 +127,10 @@ public class PanBoard extends JPanel implements ActionListener {
                 dY = 0;
                 bJump = true;
                 bDamage1 = true;
-                
-            }else{
+
+            } else {
                 bDamage1 = false;
-            } 
+            }
             if (sprEnemy2.GetRect().intersects(sprPlayer.GetRect())) {
                 sprPlayer.y = nYstart2;
                 sprEnemy2.x = nXstart3;
@@ -134,7 +138,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 bJump = true;
                 //bExist = false;
                 bDamage2 = true;
-            }else{
+            } else {
                 bDamage2 = false;
             }
             if (sprEnemy1.GetRect().intersects(sprPlayer.GetRect()) && sprPlayer.y < 380) {
@@ -169,7 +173,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 dX = 5 + (Math.random() * 100);
-                 System.out.println(dX);
+                System.out.println(dX);
                 nScore += 1;
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
@@ -204,7 +208,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 } else if (bAttack == true && nADir == 0) {
                     biAttack = sprAttackR.getAttackSprite(nADir);
                 }
-                
+
             } else {
                 biPlayer = sprPlayer.getStill();
                 biEnemy = sprEnemy1.getStill();
@@ -228,7 +232,7 @@ public class PanBoard extends JPanel implements ActionListener {
         } else {
             sMP = "MP: " + Sprite.nMP;
         }
-        
+
         sMPCool = "MP Cooldown: " + Sprite.nMPCool;
         sScore = "Score: " + nScore;
         repaint();
@@ -243,7 +247,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.setColor(White);
         g.setFont(font);
 
-         if (sprPlayer.Health() > 0) {
+        if (sprPlayer.Health() > 0) {
             g2d.drawImage(biPlayer, sprPlayer.getX(), sprPlayer.getY(), null);
             g2d.drawImage(biEnemy, sprEnemy1.x, sprEnemy1.y, null);//Enemy 1
             g2d.drawImage(biEnemy, sprEnemy2.x, sprEnemy2.y, null);//Enemy 2
@@ -301,8 +305,8 @@ public class PanBoard extends JPanel implements ActionListener {
             } else if (code == KeyEvent.VK_D) {
                 nDir = 3;
                 bMove = true;
-            } else if (code == KeyEvent.VK_W /*&& bJump == true*/) {
-                sprPlayer.dy = -15;
+            } else if (code == KeyEvent.VK_W && bJump == true) {
+                dY = -10;
             }
             if (code == KeyEvent.VK_SPACE && Sprite.nMP > 0) {//Attack
                 bAttack = true;
@@ -313,7 +317,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (code == KeyEvent.VK_G && Sprite.nMP > 0) {//Healing
                 bHeal = true;
             }
-            if (code == KeyEvent.VK_F && Sprite.nMP == 0 
+            if (code == KeyEvent.VK_F && Sprite.nMP == 0
                     || code == KeyEvent.VK_SPACE && Sprite.nMP == 0) {
                 bForce = false;
                 bAttack = false;
