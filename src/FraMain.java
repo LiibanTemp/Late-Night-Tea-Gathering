@@ -25,10 +25,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class FraMain extends JFrame {
 
-    public static void main(String[] args) {
-        new FraMain();
-    }
-
     public FraMain() {
         add(new PanBoard() {
         });
