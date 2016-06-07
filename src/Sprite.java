@@ -53,13 +53,16 @@ public class Sprite {
         }
         if (PanBoard.bDamage2) {
             nHealth -= 1;
+        }if(PanBoard.bEDeath){
+            nHealth = 100;
         }
         return nHealth;
+        
     }
 
     public int EHealth() {
         if (PanBoard.bEDamage1) {
-            nEHealth -= 1;
+            nEHealth -= 5;
         }
         if (nEHealth == 0) {
             nEHealth = 0;
