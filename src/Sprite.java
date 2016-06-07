@@ -53,11 +53,9 @@ public class Sprite {
         }
         if (PanBoard.bDamage2) {
             nHealth -= 1;
-        }if(PanBoard.bEDeath){
-            nHealth = 100;
         }
         return nHealth;
-        
+
     }
 
     public int EHealth() {
@@ -67,10 +65,15 @@ public class Sprite {
         if (nEHealth == 0) {
             nEHealth = 0;
             //nEHealth = 100;
+        }
+        if (PanBoard.bEDeath) {
+            nEHealth = 100;
+        }
+
+        return nEHealth;
     }
-     return nEHealth;
-}
-public int Mana() {
+
+    public int Mana() {
         if (nMP <= 0) {
             nMP = 0;
             nMPCool--;

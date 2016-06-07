@@ -204,9 +204,10 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x = -376 + (int) (Math.random() * 376);
                 dX = 5 + (Math.random() * 10);
                 nScore += 1;
-                bDeath = true;
+                bEDeath = true;
+                //bEDeath = false;            
             } else{
-                bDeath = false;
+                bEDeath = false;
             }
             
             //Sprite Updating
