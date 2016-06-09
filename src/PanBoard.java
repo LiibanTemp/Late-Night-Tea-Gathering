@@ -107,9 +107,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x -= dX;
             }
             if (sprEnemy2.x > sprPlayer.x) {
-               // sprEnemy2.x -= dX2;
+                 sprEnemy2.x -= dX2;
             } else if (sprEnemy2.x < sprPlayer.x) {
-               // sprEnemy2.x += dX2;
+                 sprEnemy2.x += dX2;
             }
 
             //Hit Detection Code
@@ -171,39 +171,46 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 bEDamage1 = true;
-            }else{
+            } else {
                 bEDamage1 = false;
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
-               // sprEnemy1.x = -376 + (int) (Math.random() * 376);
-               // dX = 5 + (Math.random() * 10);
-                //System.out.println(dX);
-                //nScore += 1;
                 bEDamage1 = true;
-            }else{
+            } else {
                 bEDamage1 = false;
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
-                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
+                sprEnemy2.x = 376 + (int) (Math.random() * 765);
                 dX2 = 5 + (Math.random() * 10);
                 nScore += 1;
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
-                sprEnemy2.x = 376 + (int) (Math.random() * 1300);
+                sprEnemy2.x = 765 + (int) (Math.random() * 765);
                 dX2 = 5 + (Math.random() * 10);
                 nScore += 1;
             }
-            
-            if(Sprite.nEHealth <= 0){
-                sprEnemy1.x = -376 + (int) (Math.random() * 376);
-                dX = 5 + (Math.random() * 10);
+
+            if (Sprite.nEHealth <= 0) {
+                sprEnemy1.x = -765 + (int) (Math.random() * 765);
+                dX = 5 + (Math.random() * 20);
+               // System.out.println(dX);
                 nScore += 1;
                 bEDeath = true;
                 //bEDeath = false;            
-            } else{
+            } else {
                 bEDeath = false;
             }
-            
+             if (Sprite.nEHealth2 <= 0) {
+                sprEnemy2.x = 765 + (int) (Math.random() * 765);
+                dX2 = 5 + (Math.random() * 20);
+               // System.out.println(dX);
+                nScore += 1;
+                bEDeath = true;
+                //bEDeath = false;            
+            } else {
+                bEDeath = false;
+            }
+
             //Sprite Updating
             if (nDir == 1) {//left attack
                 nADir = 1;
@@ -233,11 +240,11 @@ public class PanBoard extends JPanel implements ActionListener {
         } else if (sprPlayer.Health() <= 0) {
             sHealth = "Health: 0";
             biDeath = sprDeath.getStill();
-        } else if (sprEnemy1.EHealth() <= 0) {
-            sprEnemy1.x = -376 + (int) (Math.random() * 376);
-            dX = 5 + (Math.random() * 100);
-           // sHealth = "Health: 0";
-           // biDeath = sprDeath.getStill();
+//        } else if (sprEnemy1.EHealth() <= 0) {
+//            sprEnemy1.x = -376 + (int) (Math.random() * 376);
+//            dX = 5 + (Math.random() * 100);
+            // sHealth = "Health: 0";
+            // biDeath = sprDeath.getStill();
         }
 
         //MpP Managing Code
