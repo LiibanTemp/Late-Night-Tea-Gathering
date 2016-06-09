@@ -235,7 +235,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 biForce = sprForce.getForceSprite();
             }
             sHealth = "Health: " + sprPlayer.Health();
-            sEHealth = "" + Integer.toString(sprEnemy1.EHealth());
+            sEHealth = Integer.toString(sprEnemy1.EHealth());
         } else if (sprPlayer.Health() <= 0) {
             sHealth = "Health: 0";
             biDeath = sprDeath.getStill();
@@ -315,7 +315,6 @@ public class PanBoard extends JPanel implements ActionListener {
             bMove = false;
             bAttack = false;
             bForce = false;
-            bHeal = false;
         }
 
         @Override
