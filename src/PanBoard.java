@@ -27,7 +27,7 @@ public class PanBoard extends JPanel implements ActionListener {
     static boolean bMove, bJump, bAttack, bLeft, bRight, bForce, bDeath, bDamage1;
     static boolean bDamage2, bHeal, bEDamage1, bEDamage2, bEDeath;
     //http://stackoverflow.com/questions/16761630/font-createfont-set-color-and-size-java-awt-font
-    Color White = new Color(128, 128, 128);
+    Color White = new Color(128, 0, 0);
     Color Black = new Color(0, 0, 0);
     Font font = new Font("Verdana", Font.BOLD, 25);
 
@@ -170,10 +170,6 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy2.x = 700;
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
-                //sprEnemy1.x = -376 + (int) (Math.random() * 376);
-                //dX = 5 + (Math.random() * 100);
-                System.out.println(dX);
-               // nScore += 1;
                 bEDamage1 = true;
             }else{
                 bEDamage1 = false;
@@ -181,7 +177,7 @@ public class PanBoard extends JPanel implements ActionListener {
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
                // sprEnemy1.x = -376 + (int) (Math.random() * 376);
                // dX = 5 + (Math.random() * 10);
-                System.out.println(dX);
+                //System.out.println(dX);
                 //nScore += 1;
                 bEDamage1 = true;
             }else{
@@ -190,13 +186,11 @@ public class PanBoard extends JPanel implements ActionListener {
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 dX2 = 5 + (Math.random() * 10);
-                System.out.println(dX);
                 nScore += 1;
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
                 sprEnemy2.x = 376 + (int) (Math.random() * 1300);
                 dX2 = 5 + (Math.random() * 10);
-                System.out.println(dX);
                 nScore += 1;
             }
             
@@ -315,6 +309,7 @@ public class PanBoard extends JPanel implements ActionListener {
             bMove = false;
             bAttack = false;
             bForce = false;
+            bHeal = false;
         }
 
         @Override
