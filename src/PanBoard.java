@@ -78,7 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         background = BG.getImage();
         ImageIcon Death = new ImageIcon("Died.jpg");
         End = Death.getImage();
-        timer = new Timer(30, this);
+        timer = new Timer(50, this);
         timer.start();
     }
 

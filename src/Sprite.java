@@ -95,8 +95,8 @@ public class Sprite {
             nMPCool--;
         }
         if (nMPCool <= 0) {//Problem area that needs to be fixed
-            nMPCool = 1;
-            nMP = 50;
+            nMPCool = 50;
+            nMP = 250;
         }
         if (PanBoard.bAttack == true) {
             nMP -= 5;
