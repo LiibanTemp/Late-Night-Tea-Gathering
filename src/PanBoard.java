@@ -94,7 +94,7 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer.Mana();
         sprPlayer.Health();
         sprEnemy1.EHealth();
-        sprEnemy2.EHealth2();
+       // sprEnemy2.EHealth2();
         // dX = 5 + (int) (Math.random() * 10);
         //nMP = Sprite.nMP;
         dGravity = 0.50;
@@ -110,9 +110,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x -= dX;
             }
             if (sprEnemy2.x > sprPlayer.x) {
-                sprEnemy2.x -= dX2;
+               // sprEnemy2.x -= dX2;
             } else if (sprEnemy2.x < sprPlayer.x) {
-                sprEnemy2.x += dX2;
+                //sprEnemy2.x += dX2;
             }
 
             //Hit Detection Code

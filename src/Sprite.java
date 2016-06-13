@@ -32,11 +32,11 @@ public class Sprite {
         nHeight = _nHeight;
         nWidth = _nWidth;
         r = new Rectangle();
-        nHealth = 10000;//500 for actual game, may be higher, 100 for testing
+        nHealth = 500;//500 for actual game, may be higher, 100 for testing
         nEHealth = 0 + (int) (Math.random() * 100);
         nEHealth2 = 0 + (int) (Math.random() * 100);
-        nMP = 10000;//MP, Used to preform action, 600 for actual game
-        nMPCool = 1;//MP Cooldown variable
+        nMP = 250;//MP, Used to preform action, 600 for actual game
+        nMPCool = 50;//MP Cooldown variable
         nGridX = 0; // the first sprite sheet image.
         nAttackGridX = 0;
         nForceGridX = 0;
@@ -96,7 +96,7 @@ public class Sprite {
         }
         if (nMPCool <= 0) {//Problem area that needs to be fixed
             nMPCool = 1;
-            nMP = 10000;
+            nMP = 50;
         }
         if (PanBoard.bAttack == true) {
             nMP -= 5;
