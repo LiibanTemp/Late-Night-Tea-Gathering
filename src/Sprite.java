@@ -20,7 +20,7 @@ public class Sprite {
     int x, y, nDir, nGridX, nAttackGridX, nADir, nDeathGridX, nForceGridX;
     int nX, nY, nWidth, nHeight;
     Rectangle r;
-    public static int nMP, nHealth, nEHealth, nMPCool, nScore;
+    public static int nMP, nHealth, nEHealth, nEHealth2, nMPCool, nScore;
     int nGravity = 1;
     boolean bJump, isAnim, isEnemy;
     String sFile;
@@ -32,10 +32,11 @@ public class Sprite {
         nHeight = _nHeight;
         nWidth = _nWidth;
         r = new Rectangle();
-        nHealth = 10000;//500 for actual game, may be higher, 100 for testing
-        nEHealth = 100;
-        nMP = 500;//MP, Used to preform action, 600 for actual game
-        nMPCool = 10;//MP Cooldown variable
+        nHealth = 500;//500 for actual game, may be higher, 100 for testing
+        nEHealth = 0 + (int) (Math.random() * 100);
+        nEHealth2 = 0 + (int) (Math.random() * 100);
+        nMP = 250;//MP, Used to preform action, 600 for actual game
+        nMPCool = 50;//MP Cooldown variable
         nGridX = 0; // the first sprite sheet image.
         nAttackGridX = 0;
         nForceGridX = 0;
@@ -67,11 +68,26 @@ public class Sprite {
             //nEHealth = 100;
         }
         if (PanBoard.bEDeath) {
-            nEHealth = 100;
+            nEHealth = 0 + (int) (Math.random() * 200);
         }
 
         return nEHealth;
     }
+    public int EHealth2() {
+        if (PanBoard.bEDamage2) {
+            nEHealth2 -= 5;
+        }
+        if (nEHealth2 == 0) {
+            nEHealth2 = 0;
+            //nEHealth = 100;
+        }
+        if (PanBoard.bEDeath2) {
+            nEHealth2 = 0 + (int) (Math.random() * 200);
+        }
+
+        return nEHealth2;
+    }
+    
 
     public int Mana() {
         if (nMP <= 0) {
@@ -79,8 +95,8 @@ public class Sprite {
             nMPCool--;
         }
         if (nMPCool <= 0) {//Problem area that needs to be fixed
-            nMPCool = 10;
-            nMP = 500;
+            nMPCool = 50;
+            nMP = 250;
         }
         if (PanBoard.bAttack == true) {
             nMP -= 5;
