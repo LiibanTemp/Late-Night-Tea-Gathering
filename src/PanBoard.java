@@ -78,7 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         background = BG.getImage();
         ImageIcon Death = new ImageIcon("Died.jpg");
         End = Death.getImage();
-        timer = new Timer(50, this);
+        timer = new Timer(30, this);
         timer.start();
     }
 
@@ -174,24 +174,19 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 bEDamage1 = true;
-            } else {
-                bEDamage1 = false;
+            
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
                 bEDamage1 = true;
-            } else {
-                bEDamage1 = false;
+           
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
                 bEDamage2 = true;
-            } else {
-                bEDamage2 = false;
+            
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
-                bEDamage2 = true;
-            } else {
-                bEDamage2 = false;
-            }
+                bEDamage2 = true; 
+           }
 
             if (Sprite.nEHealth <= 0) {
                 sprEnemy1.x = -765 + (int) (Math.random() * 765);
@@ -317,6 +312,8 @@ public class PanBoard extends JPanel implements ActionListener {
             bAttack = false;
             bForce = false;
             bHeal = false;
+            bEDamage2 = false;
+            bEDamage1 = false;
         }
 
         @Override
