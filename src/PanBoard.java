@@ -94,7 +94,7 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer.Mana();
         sprPlayer.Health();
         sprEnemy1.EHealth();
-       // sprEnemy2.EHealth2();
+        sprEnemy2.EHealth2();
         // dX = 5 + (int) (Math.random() * 10);
         //nMP = Sprite.nMP;
         dGravity = 0.50;
@@ -110,9 +110,9 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x -= dX;
             }
             if (sprEnemy2.x > sprPlayer.x) {
-               // sprEnemy2.x -= dX2;
+               sprEnemy2.x -= dX2;
             } else if (sprEnemy2.x < sprPlayer.x) {
-                //sprEnemy2.x += dX2;
+                sprEnemy2.x += dX2;
             }
 
             //Hit Detection Code
@@ -193,7 +193,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 bEDamage2 = false;
             }
 
-            if (sprEnemy1.nEHealth <= 0) {
+            if (Sprite.nEHealth <= 0) {
                 sprEnemy1.x = -765 + (int) (Math.random() * 765);
                 dX = 5 + (Math.random() * 20);
                 // System.out.println(dX);
@@ -203,7 +203,7 @@ public class PanBoard extends JPanel implements ActionListener {
             } else {
                 bEDeath = false;
             }
-            if (sprEnemy2.nEHealth2 <= 0) {
+            if (Sprite.nEHealth2 <= 0) {
                 sprEnemy2.x = 765 + (int) (Math.random() * 765);
                 dX2 = 5 + (Math.random() * 20);
                 // System.out.println(dX);
@@ -238,17 +238,12 @@ public class PanBoard extends JPanel implements ActionListener {
                 }
                 biForce = sprForce.getForceSprite();
             }
-            sHealth = "Health: " + sprPlayer.Health();
-            sEHealth = Integer.toString(sprEnemy1.EHealth());
-            sEHealth2 = Integer.toString(sprEnemy2.EHealth2());
-        } else if (sprPlayer.Health() <= 0) {
+            sHealth = "Health: " + Sprite.nHealth;
+            sEHealth = Integer.toString(Sprite.nEHealth);
+            sEHealth2 = Integer.toString(Sprite.nEHealth2);
+        } else if (Sprite.nHealth <= 0) {
             sHealth = "Health: 0";
             biDeath = sprDeath.getStill();
-//        } else if (sprEnemy1.EHealth() <= 0) {
-//            sprEnemy1.x = -376 + (int) (Math.random() * 376);
-//            dX = 5 + (Math.random() * 100);
-            // sHealth = "Health: 0";
-            // biDeath = sprDeath.getStill();
         }
 
         //MpP Managing Code
@@ -272,7 +267,7 @@ public class PanBoard extends JPanel implements ActionListener {
         g.setColor(White);
         g.setFont(font);
 
-        if (sprPlayer.Health() > 0) {
+        if (Sprite.nHealth > 0) {
             g2d.drawImage(biPlayer, sprPlayer.getX(), sprPlayer.getY(), null);
             g2d.drawImage(biEnemy, sprEnemy1.x, sprEnemy1.y, null);//Enemy 1
             g2d.drawImage(biEnemy, sprEnemy2.x, sprEnemy2.y, null);//Enemy 2
