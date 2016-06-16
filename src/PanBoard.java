@@ -78,7 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         background = BG.getImage();
         ImageIcon Death = new ImageIcon("Died.jpg");
         End = Death.getImage();
-        timer = new Timer(30, this);
+        timer = new Timer(50, this);
         timer.start();
     }
 
@@ -95,8 +95,6 @@ public class PanBoard extends JPanel implements ActionListener {
         sprPlayer.Health();
         sprEnemy1.EHealth();
         sprEnemy2.EHealth2();
-        // dX = 5 + (int) (Math.random() * 10);
-        //nMP = Sprite.nMP;
         dGravity = 0.50;
         dY += dGravity;
         sprPlayer.y += dY;
@@ -172,19 +170,19 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x = 0;
                 sprEnemy2.x = 700;
             }
-            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight && Sprite.nMP > 0) {
                 bEDamage1 = true;
             
             }
-            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
+            if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft && Sprite.nMP > 0) {
                 bEDamage1 = true;
            
             }
-            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight) {
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight && Sprite.nMP > 0) {
                 bEDamage2 = true;
             
             }
-            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft) {
+            if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft && Sprite.nMP > 0) {
                 bEDamage2 = true; 
            }
 
