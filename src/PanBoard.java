@@ -78,7 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         background = BG.getImage();
         ImageIcon Death = new ImageIcon("Died.jpg");
         End = Death.getImage();
-        timer = new Timer(50, this);
+        timer = new Timer(30, this);
         timer.start();
     }
 
@@ -188,8 +188,7 @@ public class PanBoard extends JPanel implements ActionListener {
 
             if (Sprite.nEHealth <= 0) {
                 sprEnemy1.x = -765 + (int) (Math.random() * 765);
-                dX = 5 + (Math.random() * 20);
-                // System.out.println(dX);
+                dX = 5 + (Math.random() * 5);
                 nScore += 1;
                 bEDeath = true;
                 //bEDeath = false;            
@@ -198,8 +197,7 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (Sprite.nEHealth2 <= 0) {
                 sprEnemy2.x = 765 + (int) (Math.random() * 765);
-                dX2 = 5 + (Math.random() * 20);
-                // System.out.println(dX);
+                dX2 = 5 + (Math.random() * 5);
                 nScore += 1;
                 bEDeath2 = true;
                 //bEDeath = false;            

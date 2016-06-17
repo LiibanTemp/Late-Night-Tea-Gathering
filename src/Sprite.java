@@ -35,7 +35,7 @@ public class Sprite {
         nHealth = 500;//500 for actual game, may be higher, 100 for testing
         nEHealth = 0 + (int) (Math.random() * 20);
         nEHealth2 = 0 + (int) (Math.random() * 20);
-        nMP = 250;//MP, Used to preform action, 600 for actual game
+        nMP = 600;//MP, Used to preform action, 600 for actual game
         nMPCool = 50;//MP Cooldown variable
         nGridX = 0; // the first sprite sheet image.
         nAttackGridX = 0;
