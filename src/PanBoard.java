@@ -191,7 +191,6 @@ public class PanBoard extends JPanel implements ActionListener {
                 dX = 5 + (Math.random() * 5);
                 nScore += 1;
                 bEDeath = true;
-                //bEDeath = false;            
             } else {
                 bEDeath = false;
             }
@@ -200,7 +199,6 @@ public class PanBoard extends JPanel implements ActionListener {
                 dX2 = 5 + (Math.random() * 5);
                 nScore += 1;
                 bEDeath2 = true;
-                //bEDeath = false;            
             } else {
                 bEDeath2 = false;
             }
