@@ -52,6 +52,7 @@ public class PanBoard extends JPanel implements ActionListener {
         bEDamage1 = false;
         bEDamage2 = false;
         nScore = 0;
+        //nMP = 0;
         dX = 5;
         dX2 = 5;
         sHealth = "";
