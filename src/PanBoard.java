@@ -78,7 +78,7 @@ public class PanBoard extends JPanel implements ActionListener {
         background = BG.getImage();
         ImageIcon Death = new ImageIcon("Died.jpg");
         End = Death.getImage();
-        timer = new Timer(30, this);
+        timer = new Timer(50, this); //30 for actual game
         timer.start();
     }
 
@@ -108,7 +108,7 @@ public class PanBoard extends JPanel implements ActionListener {
                 sprEnemy1.x -= dX;
             }
             if (sprEnemy2.x > sprPlayer.x) {
-               sprEnemy2.x -= dX2;
+                sprEnemy2.x -= dX2;
             } else if (sprEnemy2.x < sprPlayer.x) {
                 sprEnemy2.x += dX2;
             }
@@ -172,19 +172,19 @@ public class PanBoard extends JPanel implements ActionListener {
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackR.GetRect()) && bRight && Sprite.nMP > 0) {
                 bEDamage1 = true;
-            
+
             }
             if (bAttack && sprEnemy1.GetRect().intersects(sprAttackL.GetRect()) && bLeft && Sprite.nMP > 0) {
                 bEDamage1 = true;
-           
+
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackR.GetRect()) && bRight && Sprite.nMP > 0) {
                 bEDamage2 = true;
-            
+
             }
             if (bAttack && sprEnemy2.GetRect().intersects(sprAttackL.GetRect()) && bLeft && Sprite.nMP > 0) {
-                bEDamage2 = true; 
-           }
+                bEDamage2 = true;
+            }
 
             if (Sprite.nEHealth <= 0) {
                 sprEnemy1.x = -765 + (int) (Math.random() * 765);

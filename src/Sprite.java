@@ -33,8 +33,8 @@ public class Sprite {
         nWidth = _nWidth;
         r = new Rectangle();
         nHealth = 500;//500 for actual game, may be higher, 100 for testing
-        nEHealth = 0 + (int) (Math.random() * 120);
-        nEHealth2 = 0 + (int) (Math.random() * 120);
+        nEHealth = 0 + (int) (Math.random() * 10);
+        nEHealth2 = 0 + (int) (Math.random() * 10);
         nMP = 600;//MP, Used to preform action, 600 for actual game
         nMPCool = 50;//MP Cooldown variable
         nGridX = 0; // the first sprite sheet image.
@@ -65,10 +65,9 @@ public class Sprite {
         }
         if (nEHealth == 0) {
             nEHealth = 0;
-            //nEHealth = 100;
         }
         if (PanBoard.bEDeath) {
-            nEHealth = 0 + (int) (Math.random() * 200);
+            nEHealth = 0 + (int) (Math.random() * 60);
         }
 
         return nEHealth;
@@ -79,10 +78,9 @@ public class Sprite {
         }
         if (nEHealth2 == 0) {
             nEHealth2 = 0;
-            //nEHealth = 100;
         }
         if (PanBoard.bEDeath2) {
-            nEHealth2 = 0 + (int) (Math.random() * 200);
+            nEHealth2 = 0 + (int) (Math.random() * 60);
         }
 
         return nEHealth2;
